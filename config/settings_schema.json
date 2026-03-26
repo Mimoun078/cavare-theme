@@ -1,0 +1,70 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Cavarè Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Cavarè Clothing",
+    "theme_documentation_url": "https://cavareclothing.nl",
+    "theme_support_url": "https://cavareclothing.nl/pages/contact"
+  },
+  {
+    "name": "Kleuren",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primaire kleur (bruin)",
+        "default": "#2A1B0F"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secundaire kleur (charcoal)",
+        "default": "#231F20"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Achtergrondkleur",
+        "default": "#FEFEFE"
+      }
+    ]
+  },
+  {
+    "name": "Typografie",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "cinzel_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "inter_n4"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      }
+    ]
+  }
+]

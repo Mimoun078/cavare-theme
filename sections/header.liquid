@@ -1,0 +1,127 @@
+<header class="header">
+  <div class="header__inner">
+
+    {%- comment -%} Logo links {%- endcomment -%}
+    <div class="header__logo">
+      <a href="/" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 300 }}"
+            alt="{{ shop.name }}"
+            width="{{ section.settings.logo_width }}"
+            height="auto"
+            loading="eager"
+          >
+        {%- else -%}
+          <span class="header__logo-text">CAVARÈ</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    {%- comment -%} Navigatie midden {%- endcomment -%}
+    <nav class="header__nav-wrap">
+      <ul class="header__nav" role="list">
+        <li><a href="/collections/all" {% if request.path contains '/collections' %}class="active"{% endif %}>{{ 'navigation.shop' | t }}</a></li>
+        <li><a href="/pages/over-ons" {% if request.path contains 'over-ons' %}class="active"{% endif %}>{{ 'navigation.about' | t }}</a></li>
+        <li><a href="/pages/contact" {% if request.path contains 'contact' %}class="active"{% endif %}>{{ 'navigation.contact' | t }}</a></li>
+      </ul>
+    </nav>
+
+    {%- comment -%} Acties rechts {%- endcomment -%}
+    <div class="header__actions">
+
+      {%- comment -%} Taalswitch {%- endcomment -%}
+      {%- if localization.available_languages.size > 1 -%}
+        <div class="header__lang">
+          {%- for language in localization.available_languages -%}
+            {%- if language.iso_code == localization.language.iso_code -%}
+              <span>{{ language.iso_code | upcase }}</span>
+            {%- else -%}
+              <a href="{{ language | localization_url }}" hreflang="{{ language.iso_code }}">{{ language.iso_code | upcase }}</a>
+            {%- endif -%}
+            {%- unless forloop.last -%} / {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Winkelwagen {%- endcomment -%}
+      <a href="/cart" class="header__cart-icon" aria-label="Winkelwagen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="header__cart-count" aria-label="Aantal items">0</span>
+      </a>
+
+      {%- comment -%} Hamburger menu (mobiel) {%- endcomment -%}
+      <button class="header__menu-toggle" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobiel menu {%- endcomment -%}
+<div id="mobile-nav" class="mobile-nav" aria-hidden="true">
+  <button class="mobile-nav__close" aria-label="Menu sluiten">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <nav>
+    <a href="/collections/all">{{ 'navigation.shop' | t }}</a>
+    <a href="/pages/over-ons">{{ 'navigation.about' | t }}</a>
+    <a href="/pages/contact">{{ 'navigation.contact' | t }}</a>
+  </nav>
+</div>
+
+<script>
+  (function() {
+    const toggle = document.querySelector('.header__menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const closeBtn = document.querySelector('.mobile-nav__close');
+
+    function openMenu() {
+      mobileNav.classList.add('is-open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileNav.classList.remove('is-open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (toggle) toggle.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "default": 140,
+      "unit": "px",
+      "label": "Logo breedte"
+    }
+  ]
+}
+{% endschema %}

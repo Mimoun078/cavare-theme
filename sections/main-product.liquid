@@ -1,0 +1,175 @@
+<div class="product-page">
+
+  {%- comment -%} Foto galerij links {%- endcomment -%}
+  <div class="product-page__gallery">
+    <div class="product-gallery__main" id="gallery-main">
+      {%- if product.featured_image -%}
+        <img
+          id="gallery-main-img"
+          src="{{ product.featured_image | image_url: width: 900 }}"
+          alt="{{ product.featured_image.alt | default: product.title }}"
+          loading="eager"
+          width="900"
+          height="1200"
+        >
+      {%- endif -%}
+    </div>
+
+    {%- if product.images.size > 1 -%}
+      <div class="product-gallery__thumbs">
+        {%- for image in product.images limit: 5 -%}
+          <button
+            class="product-gallery__thumb {% if forloop.first %}active{% endif %}"
+            onclick="switchImage('{{ image | image_url: width: 900 }}', this)"
+            aria-label="Foto {{ forloop.index }}"
+          >
+            <img
+              src="{{ image | image_url: width: 150 }}"
+              alt="{{ image.alt | default: product.title }}"
+              loading="lazy"
+              width="150"
+              height="200"
+            >
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Product info rechts {%- endcomment -%}
+  <div class="product-page__info">
+    <p class="product-page__brand">CAVARÈ</p>
+    <h1 class="product-page__title">{{ product.title }}</h1>
+    <p class="product-page__price" id="product-price">{{ product.price | money }}</p>
+
+    <hr class="product-page__divider">
+
+    {%- form 'product', product, data-add-to-cart-form: '' -%}
+      <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}">
+
+      {%- comment -%} Maat selector {%- endcomment -%}
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          {%- if option.name == 'Maat' or option.name == 'Size' -%}
+            <div style="margin-bottom:1.5rem;">
+              <div class="size-label">
+                <span>{{ option.name }}</span>
+                <a href="/pages/maattabel" class="size-guide-link">Maattabel</a>
+              </div>
+              <div class="size-options">
+                {%- for value in option.values -%}
+                  {%- assign variant = product.variants | where: 'option1', value | first -%}
+                  <button
+                    type="button"
+                    class="size-option {% if variant.available == false %}sold-out{% endif %}"
+                    data-variant-id="{{ variant.id }}"
+                    data-size="{{ value }}"
+                    onclick="selectSize(this)"
+                  >
+                    {{ value }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endunless -%}
+
+      {%- comment -%} Add to cart {%- endcomment -%}
+      <div class="product-form__actions">
+        <button type="submit" class="btn btn--primary btn--full" id="add-to-cart-btn">
+          {%- if product.available -%}
+            {{ 'products.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      </div>
+    {%- endform -%}
+
+    <hr class="product-page__divider">
+
+    {%- comment -%} Accordeon details {%- endcomment -%}
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="true" onclick="toggleAccordion(this)">
+          <span>{{ 'products.description' | t }}</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 4l4 4 4-4"/>
+          </svg>
+        </button>
+        <div class="accordion-content is-open">
+          {{ product.description }}
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+          <span>Materiaal & Verzorging</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 4l4 4 4-4"/>
+          </svg>
+        </button>
+        <div class="accordion-content">
+          <p>{{ section.settings.material_text | default: '100% premium katoen. Wassen op 30°C. Niet in de droger. Strijken op lage temperatuur.' }}</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+          <span>Verzending & Retour</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 4l4 4 4-4"/>
+          </svg>
+        </button>
+        <div class="accordion-content">
+          <p>{{ section.settings.shipping_text | default: 'Gratis verzending binnen Nederland bij bestellingen boven €75. Retourneren binnen 30 dagen, ongedragen en in originele verpakking.' }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchImage(src, btn) {
+    document.getElementById('gallery-main-img').src = src;
+    document.querySelectorAll('.product-gallery__thumb').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function selectSize(btn) {
+    if (btn.classList.contains('sold-out')) return;
+    document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('variant-id').value = btn.dataset.variantId;
+  }
+
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', !isOpen);
+    content.classList.toggle('is-open', !isOpen);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Productpagina",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "material_text",
+      "label": "Materiaal tekst",
+      "default": "100% premium katoen. Wassen op 30°C. Niet in de droger."
+    },
+    {
+      "type": "textarea",
+      "id": "shipping_text",
+      "label": "Verzending tekst",
+      "default": "Gratis verzending bij bestellingen boven €75. Retourneren binnen 30 dagen."
+    }
+  ]
+}
+{% endschema %}

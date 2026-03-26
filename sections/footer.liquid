@@ -1,0 +1,66 @@
+<footer class="footer">
+  <div class="footer__inner">
+
+    <div class="footer__brand">
+      <p class="footer__brand-name">CAVARÈ</p>
+      <p class="footer__brand-text">{{ section.settings.brand_text }}</p>
+      <div class="footer__social" style="margin-top:1.5rem;">
+        {%- if section.settings.instagram_url != blank -%}
+          <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      <p class="footer__heading">{{ 'footer.shop' | t }}</p>
+      <ul class="footer__links">
+        <li><a href="/collections/all">{{ 'navigation.all_products' | t }}</a></li>
+        <li><a href="/collections/t-shirts">T-Shirts</a></li>
+        <li><a href="/collections/new">{{ 'footer.new_arrivals' | t }}</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer__heading">{{ 'footer.info' | t }}</p>
+      <ul class="footer__links">
+        <li><a href="/pages/over-ons">{{ 'navigation.about' | t }}</a></li>
+        <li><a href="/pages/contact">{{ 'navigation.contact' | t }}</a></li>
+        <li><a href="/pages/maattabel">{{ 'footer.size_guide' | t }}</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer__heading">{{ 'footer.service' | t }}</p>
+      <ul class="footer__links">
+        <li><a href="/pages/verzending">{{ 'footer.shipping' | t }}</a></li>
+        <li><a href="/pages/retour">{{ 'footer.returns' | t }}</a></li>
+        <li><a href="/pages/privacy">Privacy</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer__bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} CAVARÈ Clothing. {{ 'footer.rights' | t }}</p>
+    <p>{{ 'footer.made_in' | t }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_text",
+      "label": "Merktekst",
+      "default": "Modern elegance. Timeless simplicity. Crafted in Italy."
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    }
+  ]
+}
+{% endschema %}

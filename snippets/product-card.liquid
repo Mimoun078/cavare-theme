@@ -1,0 +1,54 @@
+{%- comment -%}
+  Product Card Snippet
+  Gebruik: {% render 'product-card', product: product %}
+{%- endcomment -%}
+
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-card__image-wrap">
+    {%- if product.featured_image -%}
+      <img
+        class="product-card__image"
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        alt="{{ product.featured_image.alt | default: product.title }}"
+        loading="lazy"
+        width="600"
+        height="800"
+      >
+      {%- if product.images[1] -%}
+        <img
+          class="product-card__image product-card__image--secondary"
+          src="{{ product.images[1] | image_url: width: 600 }}"
+          alt="{{ product.images[1].alt | default: product.title }}"
+          loading="lazy"
+          width="600"
+          height="800"
+        >
+      {%- endif -%}
+    {%- else -%}
+      <div style="width:100%;height:100%;background:#F0EBE3;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.2em;color:#7A6E65;">CAVARÈ</span>
+      </div>
+    {%- endif -%}
+
+    {%- if product.compare_at_price > product.price -%}
+      <span class="product-card__badge">Sale</span>
+    {%- elsif product.created_at > 'now' | date: '%s' | minus: 2592000 | date: '%Y-%m-%dT%H:%M:%SZ' -%}
+      <span class="product-card__badge">Nieuw</span>
+    {%- endif -%}
+
+    <div class="product-card__quick-add">Snel toevoegen</div>
+  </div>
+
+  <div class="product-card__info">
+    <h3 class="product-card__title">{{ product.title }}</h3>
+    {%- if product.variants.size > 1 -%}
+      <p class="product-card__variant">{{ product.variants.size }} varianten</p>
+    {%- endif -%}
+    <p class="product-card__price">
+      {%- if product.compare_at_price > product.price -%}
+        <span style="text-decoration:line-through; color:#7A6E65; font-size:0.8rem; margin-right:0.5rem;">{{ product.compare_at_price | money }}</span>
+      {%- endif -%}
+      {{ product.price | money }}
+    </p>
+  </div>
+</a>

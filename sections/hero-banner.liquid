@@ -1,0 +1,81 @@
+<section class="hero">
+  {%- if section.settings.image != blank -%}
+    <img
+      class="hero__image"
+      src="{{ section.settings.image | image_url: width: 2000 }}"
+      srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
+              {{ section.settings.image | image_url: width: 1200 }} 1200w,
+              {{ section.settings.image | image_url: width: 2000 }} 2000w"
+      sizes="100vw"
+      alt="{{ section.settings.image.alt | default: 'Cavarè Clothing' }}"
+      loading="eager"
+      fetchpriority="high"
+    >
+  {%- else -%}
+    <div class="hero__image" style="background: linear-gradient(135deg, #2A1B0F 0%, #231F20 100%);"></div>
+  {%- endif -%}
+
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    {%- if section.settings.label != blank -%}
+      <p class="hero__label fade-up">{{ section.settings.label }}</p>
+    {%- endif -%}
+    <h1 class="hero__title fade-up fade-up--delay-1">{{ section.settings.title }}</h1>
+    {%- if section.settings.subtitle != blank -%}
+      <p class="hero__subtitle fade-up fade-up--delay-2">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_url }}" class="btn btn--light fade-up fade-up--delay-3">
+        {{ section.settings.button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Achtergrond foto"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Klein label boven de titel",
+      "default": "Nieuwe Collectie"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Hoofdtitel",
+      "default": "Modern Elegance.\nTimeless Simplicity."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Ondertitel",
+      "default": "Crafted in Italy. Made to last."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Knoptekst",
+      "default": "Bekijk de collectie"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Knop link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

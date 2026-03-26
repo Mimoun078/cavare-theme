@@ -1,0 +1,43 @@
+{
+  "general": {
+    "close": "Close"
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content"
+  },
+  "navigation": {
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact",
+    "all_products": "All products"
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "description": "Description",
+    "size": "Size"
+  },
+  "sections": {
+    "cart": {
+      "title": "Cart",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "view_cart": "View cart",
+      "empty": "Your cart is empty"
+    }
+  },
+  "collections": {
+    "product_count": "products"
+  },
+  "footer": {
+    "shop": "Shop",
+    "info": "Info",
+    "service": "Service",
+    "new_arrivals": "New arrivals",
+    "size_guide": "Size guide",
+    "shipping": "Shipping",
+    "returns": "Returns",
+    "rights": "All rights reserved.",
+    "made_in": "Made in Italy."
+  }
+}

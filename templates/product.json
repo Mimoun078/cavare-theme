@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "material_text": "100% premium katoen. Wassen op 30°C. Niet in de droger. Strijken op lage temperatuur.",
+        "shipping_text": "Gratis verzending binnen Nederland bij bestellingen boven €75. Retourneren binnen 30 dagen, ongedragen en in originele verpakking."
+      }
+    }
+  },
+  "order": ["main"]
+}

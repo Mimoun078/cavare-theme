@@ -1,0 +1,92 @@
+<div class="about-hero">
+  {%- if section.settings.hero_image != blank -%}
+    <img class="about-hero__image" src="{{ section.settings.hero_image | image_url: width: 2000 }}" alt="Cavarè" loading="eager">
+  {%- else -%}
+    <div class="about-hero__image" style="background: linear-gradient(135deg, #2A1B0F, #231F20);"></div>
+  {%- endif -%}
+  <div class="about-hero__overlay">
+    <h1 class="about-hero__title">{{ section.settings.hero_title | default: 'Over Cavarè' }}</h1>
+  </div>
+</div>
+
+<div class="about-content">
+  <p>{{ section.settings.story_text | default: 'Cavarè is geboren vanuit een eenvoudige overtuiging: kwaliteit hoeft niet luid te zijn. Elk stuk in onze collectie is met intentie gemaakt — tijdloos van snit, zuiver van materiaal, eerlijk in zijn uitstraling.' }}</p>
+</div>
+
+<div class="section section--cream-dark">
+  <div class="about-values">
+    <div class="about-value">
+      <p class="about-value__label">{{ section.settings.value1_title | default: 'Kwaliteit' }}</p>
+      <p class="about-value__text">{{ section.settings.value1_text | default: 'Alleen de beste materialen. Elk stuk doorloopt een strenge selectie voordat het de naam Cavarè draagt.' }}</p>
+    </div>
+    <div class="about-value">
+      <p class="about-value__label">{{ section.settings.value2_title | default: 'Tijdloosheid' }}</p>
+      <p class="about-value__text">{{ section.settings.value2_text | default: 'Geen seizoenstrends. Kleding die je jaar na jaar draagt, zonder dat het ooit gedateerd aanvoelt.' }}</p>
+    </div>
+    <div class="about-value">
+      <p class="about-value__label">{{ section.settings.value3_title | default: 'Eerlijkheid' }}</p>
+      <p class="about-value__text">{{ section.settings.value3_text | default: 'Transparant over herkomst en productie. Gemaakt met respect voor vakmanschap en de mensen erachter.' }}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Over Ons pagina",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero foto"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero titel",
+      "default": "Over Cavarè"
+    },
+    {
+      "type": "textarea",
+      "id": "story_text",
+      "label": "Merkverhaal tekst",
+      "default": "Cavarè is geboren vanuit een eenvoudige overtuiging: kwaliteit hoeft niet luid te zijn."
+    },
+    {
+      "type": "text",
+      "id": "value1_title",
+      "label": "Waarde 1 titel",
+      "default": "Kwaliteit"
+    },
+    {
+      "type": "textarea",
+      "id": "value1_text",
+      "label": "Waarde 1 tekst",
+      "default": "Alleen de beste materialen."
+    },
+    {
+      "type": "text",
+      "id": "value2_title",
+      "label": "Waarde 2 titel",
+      "default": "Tijdloosheid"
+    },
+    {
+      "type": "textarea",
+      "id": "value2_text",
+      "label": "Waarde 2 tekst",
+      "default": "Geen seizoenstrends."
+    },
+    {
+      "type": "text",
+      "id": "value3_title",
+      "label": "Waarde 3 titel",
+      "default": "Eerlijkheid"
+    },
+    {
+      "type": "textarea",
+      "id": "value3_text",
+      "label": "Waarde 3 tekst",
+      "default": "Transparant over herkomst en productie."
+    }
+  ]
+}
+{% endschema %}
