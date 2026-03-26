@@ -1,0 +1,37 @@
+<div class="collection-page">
+
+  <div class="collection-header">
+    <h1 class="collection-header__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p style="font-size:0.9rem; color:#7A6E65; margin-top:0.5rem;">{{ collection.description }}</p>
+    {%- endif -%}
+    <p class="collection-count">{{ collection.products_count }} {{ 'collections.product_count' | t }}</p>
+  </div>
+
+  {%- if collection.products.size > 0 -%}
+    <div class="product-grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Paginering {%- endcomment -%}
+    {%- if paginate.pages > 1 -%}
+      <div style="text-align:center; margin-top:3rem;">
+        {{ paginate | default_pagination }}
+      </div>
+    {%- endif -%}
+
+  {%- else -%}
+    <div style="text-align:center; padding:5rem 0; color:#7A6E65;">
+      <p style="font-family:'Cinzel',serif; font-size:1rem; letter-spacing:0.1em;">Geen producten gevonden</p>
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Collectie pagina"
+}
+{% endschema %}

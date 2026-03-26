@@ -1,0 +1,104 @@
+<section class="section {% if section.settings.bg_dark %}section--cream-dark{% endif %}">
+  <div class="container">
+    <div class="section__header">
+      {%- if section.settings.label != blank -%}
+        <span class="section__label">{{ section.settings.label }}</span>
+      {%- endif -%}
+      <h2 class="section__title">{{ section.settings.title }}</h2>
+    </div>
+
+    {%- assign collection = collections[section.settings.collection] -%}
+    {%- if collection != blank -%}
+      <div class="product-grid">
+        {%- for product in collection.products limit: section.settings.products_limit -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      {%- comment -%} Placeholder voor als er nog geen collectie is {%- endcomment -%}
+      <div class="product-grid">
+        {%- for i in (1..4) -%}
+          <div class="product-card">
+            <div class="product-card__image-wrap" style="background: #F0EBE3; display:flex; align-items:center; justify-content:center;">
+              <span style="font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:0.2em; color:#7A6E65;">CAVARÈ</span>
+            </div>
+            <div class="product-card__info">
+              <p class="product-card__title">Cavarè T-Shirt</p>
+              <p class="product-card__price">€ 79,00</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_button -%}
+      <div class="text-center mt-2">
+        <a href="{{ section.settings.button_url | default: '/collections/all' }}" class="btn btn--outline">
+          {{ section.settings.button_label | default: 'Bekijk alle producten' }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Uitgelichte Collectie",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Klein label",
+      "default": "Onze Collectie"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Sectie titel",
+      "default": "Nieuw Binnen"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collectie"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Aantal producten"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Toon 'Bekijk alle' knop",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Knoptekst",
+      "default": "Bekijk alle producten"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Knop link"
+    },
+    {
+      "type": "checkbox",
+      "id": "bg_dark",
+      "label": "Licht beige achtergrond",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Uitgelichte Collectie"
+    }
+  ]
+}
+{% endschema %}

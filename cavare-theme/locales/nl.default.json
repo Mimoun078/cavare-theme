@@ -1,0 +1,43 @@
+{
+  "general": {
+    "close": "Sluiten"
+  },
+  "accessibility": {
+    "skip_to_text": "Ga naar inhoud"
+  },
+  "navigation": {
+    "shop": "Shop",
+    "about": "Over ons",
+    "contact": "Contact",
+    "all_products": "Alle producten"
+  },
+  "products": {
+    "add_to_cart": "Toevoegen aan winkelwagen",
+    "sold_out": "Uitverkocht",
+    "description": "Beschrijving",
+    "size": "Maat"
+  },
+  "sections": {
+    "cart": {
+      "title": "Winkelwagen",
+      "subtotal": "Subtotaal",
+      "checkout": "Afrekenen",
+      "view_cart": "Bekijk winkelwagen",
+      "empty": "Je winkelwagen is leeg"
+    }
+  },
+  "collections": {
+    "product_count": "producten"
+  },
+  "footer": {
+    "shop": "Shop",
+    "info": "Info",
+    "service": "Service",
+    "new_arrivals": "Nieuw binnen",
+    "size_guide": "Maattabel",
+    "shipping": "Verzending",
+    "returns": "Retour",
+    "rights": "Alle rechten voorbehouden.",
+    "made_in": "Made in Italy."
+  }
+}

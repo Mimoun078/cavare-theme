@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "label": "Nieuwe Collectie",
+        "title": "Modern Elegance.\nTimeless Simplicity.",
+        "subtitle": "Crafted in Italy. Made to last.",
+        "button_label": "Bekijk de collectie",
+        "button_url": "/collections/all"
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "Onze Collectie",
+        "title": "Nieuw Binnen",
+        "products_limit": 4,
+        "show_button": true,
+        "button_label": "Bekijk alle producten",
+        "button_url": "/collections/all",
+        "bg_dark": false
+      }
+    },
+    "story": {
+      "type": "brand-story",
+      "settings": {
+        "label": "Ons Verhaal",
+        "title": "Gemaakt met Intentie",
+        "text": "Cavarè is geboren vanuit een passie voor tijdloze kwaliteit. Elk stuk is met zorg geselecteerd — ontworpen om generaties mee te gaan. Geen trends. Geen compromissen. Alleen kleding die je beter maakt.",
+        "button_label": "Lees ons verhaal",
+        "button_url": "/pages/over-ons"
+      }
+    }
+  },
+  "order": ["hero", "featured", "story"]
+}

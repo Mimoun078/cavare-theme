@@ -1,0 +1,91 @@
+{%- if cart.item_count > 0 -%}
+  <div class="cart-page">
+    <h1 class="cart-page__title">{{ 'sections.cart.title' | t }}</h1>
+
+    {%- form 'cart', cart -%}
+      {%- for item in cart.items -%}
+        <div class="cart-item">
+          <a href="{{ item.url }}">
+            <img
+              class="cart-item__image"
+              src="{{ item.image | image_url: width: 200 }}"
+              alt="{{ item.image.alt | default: item.title }}"
+              loading="lazy"
+              width="100"
+              height="133"
+            >
+          </a>
+
+          <div>
+            <a href="{{ item.url }}">
+              <p class="cart-item__title">{{ item.product_title }}</p>
+            </a>
+            {%- if item.variant_title -%}
+              <p class="cart-item__variant">{{ item.variant_title }}</p>
+            {%- endif -%}
+            <p class="cart-item__price">{{ item.final_line_price | money }}</p>
+
+            <div class="cart-item__qty">
+              <button type="button" onclick="updateQty('{{ item.key }}', {{ item.quantity | minus: 1 }})">−</button>
+              <span>{{ item.quantity }}</span>
+              <button type="button" onclick="updateQty('{{ item.key }}', {{ item.quantity | plus: 1 }})">+</button>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onclick="updateQty('{{ item.key }}', 0)"
+            style="color:#7A6E65; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;"
+            aria-label="Verwijder"
+          >
+            ✕
+          </button>
+        </div>
+      {%- endfor -%}
+
+      <div class="cart-summary">
+        <div class="cart-summary__row">
+          <span>Subtotaal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <div class="cart-summary__row">
+          <span>Verzending</span>
+          <span>Berekend bij checkout</span>
+        </div>
+        <div class="cart-summary__total">
+          <span>Totaal</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <button type="submit" name="checkout" class="btn btn--primary btn--full">
+          {{ 'sections.cart.checkout' | t }}
+        </button>
+        <a href="/collections/all" style="display:block; text-align:center; margin-top:1rem; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:#7A6E65; text-decoration:underline; text-underline-offset:3px;">
+          Verder winkelen
+        </a>
+      </div>
+    {%- endform -%}
+  </div>
+
+{%- else -%}
+  <div style="text-align:center; padding:8rem 2rem;">
+    <h1 style="font-family:'Cinzel',serif; font-size:1.5rem; letter-spacing:0.1em; margin-bottom:1rem;">Je winkelwagen is leeg</h1>
+    <p style="color:#7A6E65; margin-bottom:2rem;">Ontdek onze collectie</p>
+    <a href="/collections/all" class="btn btn--primary">Bekijk de shop</a>
+  </div>
+{%- endif -%}
+
+<script>
+  function updateQty(key, qty) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: key, quantity: qty })
+    }).then(() => window.location.reload());
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Winkelwagen"
+}
+{% endschema %}
