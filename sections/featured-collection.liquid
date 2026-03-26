@@ -1,23 +1,37 @@
 <style>
   .cv-products { padding: 5.5rem 2rem; background: #FEFEFE; }
   .cv-products__header { text-align: center; margin-bottom: 4rem; }
-  .cv-products__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #7A6E65; margin-bottom: 0.6rem; }
-  .cv-products__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0; }
-  .cv-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1280px; margin: 0 auto 3.5rem; }
+  .cv-products__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #7A6E65; margin-bottom: 0.75rem; }
+  .cv-products__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0; }
+  .cv-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto 3.5rem; }
   .cv-card { display: block; text-decoration: none; color: inherit; }
   .cv-card__media { position: relative; overflow: hidden; aspect-ratio: 3/4; background: #F5F0EB; margin-bottom: 1rem; }
-  .cv-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-  .cv-card:hover .cv-card__img { transform: scale(1.04); }
-  .cv-card__cta { position: absolute; bottom: 0; left: 0; right: 0; background: #231F20; color: #FEFEFE; text-align: center; padding: 0.9rem; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s ease; }
+
+  /* Primaire foto */
+  .cv-card__img-primary { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: opacity 0.45s ease, transform 0.7s ease; }
+
+  /* Tweede foto — verschijnt bij hover */
+  .cv-card__img-secondary { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s ease; }
+  .cv-card:hover .cv-card__img-primary { opacity: 0; }
+  .cv-card:hover .cv-card__img-secondary { opacity: 1; }
+  .cv-card:hover .cv-card__img-primary { transform: scale(1.03); }
+
+  /* NIEUW badge */
+  .cv-card__badge { position: absolute; top: 0.75rem; left: 0.75rem; background: #231F20; color: #FEFEFE; font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.6rem; z-index: 2; }
+
+  /* "Bekijk product" knop onderaan foto */
+  .cv-card__cta { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(35,31,32,0.88); color: #FEFEFE; text-align: center; padding: 0.85rem; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s ease; z-index: 2; }
   .cv-card:hover .cv-card__cta { transform: translateY(0); }
-  .cv-card__name { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.06em; margin: 0 0 0.25rem; color: #231F20; }
+
+  .cv-card__info { padding: 0 0.1rem; }
+  .cv-card__name { font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.3rem; color: #231F20; }
   .cv-card__sub { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: #7A6E65; margin: 0 0 0.3rem; }
-  .cv-card__price { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500; color: #2A1B0F; margin: 0; }
+  .cv-card__price { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: #231F20; margin: 0; }
   .cv-products__cta { text-align: center; }
-  .cv-products__cta-link { display: inline-block; padding: 0.85rem 2.8rem; border: 1px solid #231F20; color: #231F20; font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; }
+  .cv-products__cta-link { display: inline-block; padding: 0.9rem 3rem; border: 1px solid #231F20; color: #231F20; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; }
   .cv-products__cta-link:hover { background: #231F20; color: #FEFEFE; }
   @media (max-width: 1024px) { .cv-products__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .cv-products { padding: 3.5rem 1.25rem; } .cv-products__grid { gap: 0.75rem; } }
+  @media (max-width: 480px) { .cv-products { padding: 3.5rem 1.25rem; } .cv-products__grid { gap: 1rem; } }
 </style>
 
 <section class="cv-products">
@@ -30,15 +44,24 @@
   {%- if col != blank and col.products.size > 0 -%}
     <div class="cv-products__grid">
       {%- for product in col.products limit: 4 -%}
+        {%- assign second_img = product.images[1] -%}
         <a href="{{ product.url }}" class="cv-card">
           <div class="cv-card__media">
-            {%- if product.featured_image -%}
-              <img class="cv-card__img" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" loading="lazy">
+            {%- if product.tags contains 'nieuw' or product.tags contains 'new' -%}
+              <span class="cv-card__badge">Nieuw</span>
+            {%- endif -%}
+            <img class="cv-card__img-primary" src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title }}" loading="lazy">
+            {%- if second_img -%}
+              <img class="cv-card__img-secondary" src="{{ second_img | image_url: width: 700 }}" alt="{{ product.title }}" loading="lazy">
+            {%- else -%}
+              <img class="cv-card__img-secondary" src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title }}" loading="lazy">
             {%- endif -%}
             <div class="cv-card__cta">Bekijk product</div>
           </div>
-          <p class="cv-card__name">{{ product.title }}</p>
-          <p class="cv-card__price">{{ product.price | money }}</p>
+          <div class="cv-card__info">
+            <p class="cv-card__name">{{ product.title }}</p>
+            <p class="cv-card__price">{{ product.price | money }}</p>
+          </div>
         </a>
       {%- endfor -%}
     </div>
@@ -46,39 +69,49 @@
     <div class="cv-products__grid">
       <a href="/collections/all" class="cv-card">
         <div class="cv-card__media">
-          <img class="cv-card__img" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="T-Shirts" loading="lazy">
+          <span class="cv-card__badge">Nieuw</span>
+          <img class="cv-card__img-primary" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="T-Shirts" loading="lazy">
+          <img class="cv-card__img-secondary" src="{{ 'cavare-tshirt-red.jpeg' | asset_url }}" alt="T-Shirt" loading="lazy">
           <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cv-card__name">T-Shirt Collection</p>
-        <p class="cv-card__sub">Bruin · Navy · Taupe</p>
-        <p class="cv-card__price">€ 79,00</p>
+        <div class="cv-card__info">
+          <p class="cv-card__name">T-Shirt Collection</p>
+          <p class="cv-card__price">€ 79,00</p>
+        </div>
       </a>
       <a href="/collections/all" class="cv-card">
         <div class="cv-card__media">
-          <img class="cv-card__img" src="{{ 'cavare-tshirt-red.jpeg' | asset_url }}" alt="T-Shirt Burgundy" loading="lazy">
+          <span class="cv-card__badge">Nieuw</span>
+          <img class="cv-card__img-primary" src="{{ 'cavare-tshirt-red.jpeg' | asset_url }}" alt="T-Shirt Burgundy" loading="lazy">
+          <img class="cv-card__img-secondary" src="{{ 'cavare-ivory-linnen.jpeg' | asset_url }}" alt="T-Shirt" loading="lazy">
           <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cv-card__name">T-Shirt Burgundy</p>
-        <p class="cv-card__sub">Bordeauxrood</p>
-        <p class="cv-card__price">€ 79,00</p>
+        <div class="cv-card__info">
+          <p class="cv-card__name">T-Shirt Burgundy</p>
+          <p class="cv-card__price">€ 79,00</p>
+        </div>
       </a>
       <a href="/collections/all" class="cv-card">
         <div class="cv-card__media">
-          <img class="cv-card__img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
+          <img class="cv-card__img-primary" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
+          <img class="cv-card__img-secondary" src="{{ 'cavare-mocca-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
           <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cv-card__name">Cavarè Jas</p>
-        <p class="cv-card__sub">Mocca Brown</p>
-        <p class="cv-card__price">€ 249,00</p>
+        <div class="cv-card__info">
+          <p class="cv-card__name">Cavarè Jas</p>
+          <p class="cv-card__price">€ 249,00</p>
+        </div>
       </a>
       <a href="/collections/all" class="cv-card">
         <div class="cv-card__media">
-          <img class="cv-card__img" src="{{ 'cavare-bodywarmer.jpeg' | asset_url }}" alt="Bodywarmer" loading="lazy">
+          <img class="cv-card__img-primary" src="{{ 'cavare-bodywarmer.jpeg' | asset_url }}" alt="Bodywarmer" loading="lazy">
+          <img class="cv-card__img-secondary" src="{{ 'cavare-broek.jpeg' | asset_url }}" alt="Bodywarmer" loading="lazy">
           <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cv-card__name">Bodywarmer</p>
-        <p class="cv-card__sub">Premium kwaliteit</p>
-        <p class="cv-card__price">€ 189,00</p>
+        <div class="cv-card__info">
+          <p class="cv-card__name">Bodywarmer</p>
+          <p class="cv-card__price">€ 189,00</p>
+        </div>
       </a>
     </div>
   {%- endif -%}

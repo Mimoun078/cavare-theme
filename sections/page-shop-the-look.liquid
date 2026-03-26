@@ -1,0 +1,197 @@
+<style>
+  .cv-stl-page { background: #FEFEFE; }
+
+  /* Pagina header */
+  .cv-stl-page__header { padding: 5rem 2rem 3rem; text-align: center; border-bottom: 1px solid #E8E2DB; }
+  .cv-stl-page__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: #7A6E65; margin-bottom: 0.75rem; }
+  .cv-stl-page__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0 0 0.75rem; }
+  .cv-stl-page__sub { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: rgba(35,31,32,0.6); margin: 0; }
+
+  /* Look blok */
+  .cv-stl-look { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+  .cv-stl-look--reverse { direction: rtl; }
+  .cv-stl-look--reverse > * { direction: ltr; }
+  .cv-stl-look + .cv-stl-look { border-top: 1px solid #E8E2DB; }
+
+  /* Foto kolom */
+  .cv-stl-look__photo { overflow: hidden; }
+  .cv-stl-look__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform 0.8s ease; }
+  .cv-stl-look__photo:hover img { transform: scale(1.03); }
+
+  /* Producten kolom */
+  .cv-stl-look__products { display: flex; flex-direction: column; justify-content: center; padding: 4rem 3.5rem; gap: 2.5rem; background: #FEFEFE; }
+  .cv-stl-look__heading { font-family: 'Cinzel', 'Georgia', serif; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: #231F20; margin: 0 0 2rem; }
+  .cv-stl-look__heading span { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; color: #7A6E65; margin-bottom: 0.5rem; }
+
+  /* Product kaart */
+  .cv-stl-card { display: grid; grid-template-columns: 90px 1fr; gap: 1.25rem; align-items: start; text-decoration: none; color: inherit; padding-bottom: 2rem; border-bottom: 1px solid #E8E2DB; }
+  .cv-stl-card:last-child { border-bottom: none; padding-bottom: 0; }
+  .cv-stl-card__img-wrap { overflow: hidden; aspect-ratio: 3/4; }
+  .cv-stl-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .cv-stl-card:hover .cv-stl-card__img { transform: scale(1.06); }
+  .cv-stl-card__info { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.25rem; }
+  .cv-stl-card__name { font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #231F20; margin: 0; }
+  .cv-stl-card__sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #7A6E65; margin: 0; }
+  .cv-stl-card__price { font-family: 'Inter', sans-serif; font-size: 0.88rem; color: #231F20; margin: 0; }
+  .cv-stl-card__btn { display: inline-block; margin-top: 0.5rem; padding: 0.6rem 1.25rem; border: 1px solid #231F20; color: #231F20; font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: all 0.25s ease; align-self: flex-start; }
+  .cv-stl-card__btn:hover { background: #231F20; color: #FEFEFE; }
+
+  @media (max-width: 900px) {
+    .cv-stl-look { grid-template-columns: 1fr; min-height: auto; }
+    .cv-stl-look--reverse { direction: ltr; }
+    .cv-stl-look__photo { height: 420px; }
+    .cv-stl-look__products { padding: 3rem 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .cv-stl-page__header { padding: 3.5rem 1.25rem 2.5rem; }
+    .cv-stl-look__photo { height: 320px; }
+    .cv-stl-card { grid-template-columns: 72px 1fr; }
+  }
+</style>
+
+<div class="cv-stl-page">
+
+  <!-- Pagina header -->
+  <div class="cv-stl-page__header">
+    <span class="cv-stl-page__label">Compleet de look</span>
+    <h1 class="cv-stl-page__title">Shop the Look</h1>
+    <p class="cv-stl-page__sub">Combineer stukken voor een complete, tijdloze look.</p>
+  </div>
+
+  <!-- Look 1 -->
+  <div class="cv-stl-look">
+    <div class="cv-stl-look__photo">
+      {%- if section.settings.look1_photo != blank -%}
+        <img src="{{ section.settings.look1_photo | image_url: width: 1200 }}" alt="Look 1" loading="eager">
+      {%- else -%}
+        <img src="{{ 'cavare-model.jpeg' | asset_url }}" alt="Look 1" loading="eager">
+      {%- endif -%}
+    </div>
+    <div class="cv-stl-look__products">
+      <h2 class="cv-stl-look__heading">
+        <span>Look 01</span>
+        {{ section.settings.look1_title }}
+      </h2>
+
+      <!-- Product 1.1 -->
+      <a href="{{ section.settings.look1_p1_url | default: '/collections/all' }}" class="cv-stl-card">
+        <div class="cv-stl-card__img-wrap">
+          {%- if section.settings.look1_p1_img != blank -%}
+            <img class="cv-stl-card__img" src="{{ section.settings.look1_p1_img | image_url: width: 300 }}" alt="{{ section.settings.look1_p1_name }}" loading="lazy">
+          {%- else -%}
+            <img class="cv-stl-card__img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="cv-stl-card__info">
+          <p class="cv-stl-card__name">{{ section.settings.look1_p1_name | default: 'Cavarè Jas' }}</p>
+          <p class="cv-stl-card__sub">{{ section.settings.look1_p1_sub | default: 'Mocca Brown' }}</p>
+          <p class="cv-stl-card__price">{{ section.settings.look1_p1_price | default: '€ 249,00' }}</p>
+          <span class="cv-stl-card__btn">Product bekijken</span>
+        </div>
+      </a>
+
+      <!-- Product 1.2 -->
+      <a href="{{ section.settings.look1_p2_url | default: '/collections/all' }}" class="cv-stl-card">
+        <div class="cv-stl-card__img-wrap">
+          {%- if section.settings.look1_p2_img != blank -%}
+            <img class="cv-stl-card__img" src="{{ section.settings.look1_p2_img | image_url: width: 300 }}" alt="{{ section.settings.look1_p2_name }}" loading="lazy">
+          {%- else -%}
+            <img class="cv-stl-card__img" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="T-Shirt" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="cv-stl-card__info">
+          <p class="cv-stl-card__name">{{ section.settings.look1_p2_name | default: 'T-Shirt Collection' }}</p>
+          <p class="cv-stl-card__sub">{{ section.settings.look1_p2_sub | default: 'Bruin · Navy · Taupe' }}</p>
+          <p class="cv-stl-card__price">{{ section.settings.look1_p2_price | default: '€ 79,00' }}</p>
+          <span class="cv-stl-card__btn">Product bekijken</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Look 2 (gespiegeld) -->
+  <div class="cv-stl-look cv-stl-look--reverse">
+    <div class="cv-stl-look__photo">
+      {%- if section.settings.look2_photo != blank -%}
+        <img src="{{ section.settings.look2_photo | image_url: width: 1200 }}" alt="Look 2" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'cavare-model-techsuit.jpeg' | asset_url }}" alt="Look 2" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="cv-stl-look__products">
+      <h2 class="cv-stl-look__heading">
+        <span>Look 02</span>
+        {{ section.settings.look2_title }}
+      </h2>
+
+      <!-- Product 2.1 -->
+      <a href="{{ section.settings.look2_p1_url | default: '/collections/all' }}" class="cv-stl-card">
+        <div class="cv-stl-card__img-wrap">
+          {%- if section.settings.look2_p1_img != blank -%}
+            <img class="cv-stl-card__img" src="{{ section.settings.look2_p1_img | image_url: width: 300 }}" alt="{{ section.settings.look2_p1_name }}" loading="lazy">
+          {%- else -%}
+            <img class="cv-stl-card__img" src="{{ 'cavare-bodywarmer.jpeg' | asset_url }}" alt="Bodywarmer" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="cv-stl-card__info">
+          <p class="cv-stl-card__name">{{ section.settings.look2_p1_name | default: 'Bodywarmer' }}</p>
+          <p class="cv-stl-card__sub">{{ section.settings.look2_p1_sub | default: 'Urban Taupe' }}</p>
+          <p class="cv-stl-card__price">{{ section.settings.look2_p1_price | default: '€ 189,00' }}</p>
+          <span class="cv-stl-card__btn">Product bekijken</span>
+        </div>
+      </a>
+
+      <!-- Product 2.2 -->
+      <a href="{{ section.settings.look2_p2_url | default: '/collections/all' }}" class="cv-stl-card">
+        <div class="cv-stl-card__img-wrap">
+          {%- if section.settings.look2_p2_img != blank -%}
+            <img class="cv-stl-card__img" src="{{ section.settings.look2_p2_img | image_url: width: 300 }}" alt="{{ section.settings.look2_p2_name }}" loading="lazy">
+          {%- else -%}
+            <img class="cv-stl-card__img" src="{{ 'cavare-broek.jpeg' | asset_url }}" alt="Broek" loading="lazy">
+          {%- endif -%}
+        </div>
+        <div class="cv-stl-card__info">
+          <p class="cv-stl-card__name">{{ section.settings.look2_p2_name | default: 'Broek' }}</p>
+          <p class="cv-stl-card__sub">{{ section.settings.look2_p2_sub | default: 'Cavarè Brown' }}</p>
+          <p class="cv-stl-card__price">{{ section.settings.look2_p2_price | default: '€ 149,00' }}</p>
+          <span class="cv-stl-card__btn">Product bekijken</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Shop the Look pagina",
+  "settings": [
+    { "type": "header", "content": "Look 1" },
+    { "type": "image_picker", "id": "look1_photo", "label": "Model foto" },
+    { "type": "text", "id": "look1_title", "label": "Look naam", "default": "The Essential Look" },
+    { "type": "image_picker", "id": "look1_p1_img", "label": "Product 1 foto" },
+    { "type": "text", "id": "look1_p1_name", "label": "Product 1 naam", "default": "Cavarè Jas" },
+    { "type": "text", "id": "look1_p1_sub", "label": "Product 1 kleur/variant", "default": "Mocca Brown" },
+    { "type": "text", "id": "look1_p1_price", "label": "Product 1 prijs", "default": "€ 249,00" },
+    { "type": "url", "id": "look1_p1_url", "label": "Product 1 link" },
+    { "type": "image_picker", "id": "look1_p2_img", "label": "Product 2 foto" },
+    { "type": "text", "id": "look1_p2_name", "label": "Product 2 naam", "default": "T-Shirt Collection" },
+    { "type": "text", "id": "look1_p2_sub", "label": "Product 2 kleur/variant", "default": "Bruin · Navy · Taupe" },
+    { "type": "text", "id": "look1_p2_price", "label": "Product 2 prijs", "default": "€ 79,00" },
+    { "type": "url", "id": "look1_p2_url", "label": "Product 2 link" },
+    { "type": "header", "content": "Look 2" },
+    { "type": "image_picker", "id": "look2_photo", "label": "Model foto" },
+    { "type": "text", "id": "look2_title", "label": "Look naam", "default": "The Urban Look" },
+    { "type": "image_picker", "id": "look2_p1_img", "label": "Product 1 foto" },
+    { "type": "text", "id": "look2_p1_name", "label": "Product 1 naam", "default": "Bodywarmer" },
+    { "type": "text", "id": "look2_p1_sub", "label": "Product 1 kleur/variant", "default": "Urban Taupe" },
+    { "type": "text", "id": "look2_p1_price", "label": "Product 1 prijs", "default": "€ 189,00" },
+    { "type": "url", "id": "look2_p1_url", "label": "Product 1 link" },
+    { "type": "image_picker", "id": "look2_p2_img", "label": "Product 2 foto" },
+    { "type": "text", "id": "look2_p2_name", "label": "Product 2 naam", "default": "Broek" },
+    { "type": "text", "id": "look2_p2_sub", "label": "Product 2 kleur/variant", "default": "Cavarè Brown" },
+    { "type": "text", "id": "look2_p2_price", "label": "Product 2 prijs", "default": "€ 149,00" },
+    { "type": "url", "id": "look2_p2_url", "label": "Product 2 link" }
+  ]
+}
+{% endschema %}

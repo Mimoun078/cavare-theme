@@ -1,0 +1,111 @@
+<style>
+  .cv-popup-overlay { display: none; position: fixed; inset: 0; background: rgba(35,31,32,0.6); z-index: 500; align-items: center; justify-content: center; padding: 1rem; }
+  .cv-popup-overlay.visible { display: flex; animation: cvFadeIn 0.4s ease; }
+  .cv-popup { position: relative; background: #231F20; color: #FEFEFE; width: 100%; max-width: 520px; padding: 3.5rem 3rem; text-align: center; animation: cvSlideUp 0.4s ease; }
+  .cv-popup__close { position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none; color: rgba(254,254,254,0.5); font-size: 1.2rem; cursor: pointer; line-height: 1; padding: 4px 8px; transition: color 0.2s; }
+  .cv-popup__close:hover { color: #FEFEFE; }
+  .cv-popup__eyebrow { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(254,254,254,0.45); margin-bottom: 1rem; }
+  .cv-popup__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #FEFEFE; margin: 0 0 0.75rem; }
+  .cv-popup__text { font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.8; color: rgba(254,254,254,0.6); margin: 0 0 2rem; }
+  .cv-popup__form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .cv-popup__input { width: 100%; padding: 0.9rem 1rem; background: rgba(254,254,254,0.06); border: 1px solid rgba(254,254,254,0.2); color: #FEFEFE; font-family: 'Inter', sans-serif; font-size: 0.82rem; outline: none; transition: border-color 0.2s; }
+  .cv-popup__input::placeholder { color: rgba(254,254,254,0.35); }
+  .cv-popup__input:focus { border-color: rgba(254,254,254,0.55); }
+  .cv-popup__btn { width: 100%; padding: 0.9rem; background: #FEFEFE; border: none; color: #231F20; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s; }
+  .cv-popup__btn:hover { background: #F5F0EB; }
+  .cv-popup__skip { display: block; margin-top: 1.25rem; font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(254,254,254,0.35); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .cv-popup__skip:hover { color: rgba(254,254,254,0.65); }
+  .cv-popup__success { display: none; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(254,254,254,0.8); padding: 1rem 0; }
+  @keyframes cvFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes cvSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 480px) { .cv-popup { padding: 2.5rem 1.5rem; } }
+</style>
+
+{%- if section.settings.popup_enabled -%}
+<div class="cv-popup-overlay" id="cv-popup-overlay" role="dialog" aria-modal="true" aria-label="Nieuwsbrief">
+  <div class="cv-popup">
+    <button class="cv-popup__close" id="cv-popup-close" aria-label="Sluiten">&#10005;</button>
+    <span class="cv-popup__eyebrow">Exclusief voor leden</span>
+    <h2 class="cv-popup__title">{{ section.settings.popup_title }}</h2>
+    <p class="cv-popup__text">{{ section.settings.popup_text }}</p>
+
+    {%- form 'customer', id: 'cv-popup-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter,cavare-circle">
+      <div class="cv-popup__form">
+        <input
+          class="cv-popup__input"
+          type="email"
+          name="contact[email]"
+          placeholder="Jouw e-mailadres"
+          autocomplete="email"
+          required
+          aria-label="E-mailadres"
+        >
+        <button type="submit" class="cv-popup__btn">{{ section.settings.popup_button_label }}</button>
+      </div>
+    {%- endform -%}
+
+    <div class="cv-popup__success" id="cv-popup-success">
+      Welkom in The Cavarè Circle. Je ontvangt binnenkort een bevestiging.
+    </div>
+    <span class="cv-popup__skip" id="cv-popup-skip">Nee bedankt</span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var COOKIE = 'cv_nl_shown';
+    var DAYS = 30;
+
+    function getCookie(name) {
+      return document.cookie.split('; ').some(function(c) { return c.startsWith(name + '='); });
+    }
+    function setCookie(name, days) {
+      var d = new Date();
+      d.setTime(d.getTime() + days * 864e5);
+      document.cookie = name + '=1; expires=' + d.toUTCString() + '; path=/';
+    }
+    function closePopup() {
+      document.getElementById('cv-popup-overlay').classList.remove('visible');
+      setCookie(COOKIE, DAYS);
+    }
+
+    if (!getCookie(COOKIE)) {
+      var delay = {{ section.settings.popup_delay | default: 5 }} * 1000;
+      setTimeout(function() {
+        document.getElementById('cv-popup-overlay').classList.add('visible');
+      }, delay);
+    }
+
+    document.getElementById('cv-popup-close').addEventListener('click', closePopup);
+    document.getElementById('cv-popup-skip').addEventListener('click', closePopup);
+    document.getElementById('cv-popup-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closePopup();
+    });
+
+    var form = document.getElementById('cv-popup-form');
+    if (form) {
+      form.addEventListener('submit', function() {
+        setTimeout(function() {
+          document.querySelector('.cv-popup__form').style.display = 'none';
+          document.getElementById('cv-popup-success').style.display = 'block';
+          setTimeout(closePopup, 3000);
+        }, 500);
+      });
+    }
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Nieuwsbrief Popup",
+  "settings": [
+    { "type": "checkbox", "id": "popup_enabled", "label": "Popup inschakelen", "default": true },
+    { "type": "range", "id": "popup_delay", "min": 0, "max": 30, "step": 1, "unit": "s", "label": "Vertraging (seconden)", "default": 5 },
+    { "type": "text", "id": "popup_title", "label": "Titel", "default": "The Cavarè Circle" },
+    { "type": "textarea", "id": "popup_text", "label": "Tekst", "default": "Schrijf je in en ontvang als eerste toegang tot nieuwe collecties, exclusieve aanbiedingen en leden-evenementen." },
+    { "type": "text", "id": "popup_button_label", "label": "Knoptekst", "default": "Aanmelden" }
+  ]
+}
+{% endschema %}

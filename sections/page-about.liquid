@@ -1,38 +1,103 @@
-<div class="about-hero">
+<style>
+  /* Hero */
+  .cv-about-hero { position: relative; height: 75vh; min-height: 480px; overflow: hidden; }
+  .cv-about-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+  .cv-about-hero__overlay { position: absolute; inset: 0; background: rgba(35,31,32,0.48); display: flex; align-items: flex-end; justify-content: flex-start; padding: 4rem 5vw; }
+  .cv-about-hero__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #FEFEFE; margin: 0; }
+
+  /* Verhaal */
+  .cv-about-story { padding: 7rem 2rem; background: #FEFEFE; text-align: center; }
+  .cv-about-story__inner { max-width: 680px; margin: 0 auto; }
+  .cv-about-story__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: #7A6E65; margin-bottom: 1.25rem; }
+  .cv-about-story__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #231F20; margin: 0 0 2.5rem; }
+  .cv-about-story__text { font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.9; color: rgba(35,31,32,0.7); margin: 0 0 1.25rem; }
+  .cv-about-story__text:last-of-type { margin-bottom: 0; }
+
+  /* Waarden */
+  .cv-about-values { padding: 6rem 2rem; background: #231F20; }
+  .cv-about-values__inner { max-width: 1280px; margin: 0 auto; }
+  .cv-about-values__header { text-align: center; margin-bottom: 4rem; }
+  .cv-about-values__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(254,254,254,0.4); margin-bottom: 0.75rem; }
+  .cv-about-values__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #FEFEFE; margin: 0; }
+  .cv-about-values__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+  .cv-about-value { padding: 2.5rem; border: 1px solid rgba(254,254,254,0.1); }
+  .cv-about-value__name { font-family: 'Cinzel', 'Georgia', serif; font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: #FEFEFE; margin: 0 0 1.25rem; }
+  .cv-about-value__line { width: 2rem; height: 1px; background: rgba(254,254,254,0.3); margin-bottom: 1.25rem; }
+  .cv-about-value__text { font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.8; color: rgba(254,254,254,0.6); margin: 0; }
+
+  /* CTA */
+  .cv-about-cta { padding: 6rem 2rem; background: #FEFEFE; text-align: center; }
+  .cv-about-cta__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.3rem, 2.5vw, 2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0 0 2rem; }
+  .cv-about-cta__btn { display: inline-block; padding: 0.95rem 3.5rem; background: #2A1B0F; color: #FEFEFE; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; transition: background 0.3s ease; }
+  .cv-about-cta__btn:hover { background: #231F20; }
+
+  @media (max-width: 900px) {
+    .cv-about-values__grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .cv-about-hero { height: 55vh; }
+    .cv-about-hero__overlay { align-items: center; justify-content: center; text-align: center; }
+  }
+</style>
+
+<!-- Hero -->
+<section class="cv-about-hero">
   {%- if section.settings.hero_image != blank -%}
-    <img class="about-hero__image" src="{{ section.settings.hero_image | image_url: width: 2000 }}" alt="Cavarè" loading="eager">
+    <img class="cv-about-hero__img" src="{{ section.settings.hero_image | image_url: width: 2000 }}" alt="Over Cavarè" loading="eager">
   {%- else -%}
-    <div class="about-hero__image" style="background: linear-gradient(135deg, #2A1B0F, #231F20);"></div>
+    <img class="cv-about-hero__img" src="{{ 'cavare-model.jpeg' | asset_url }}" alt="Over Cavarè" loading="eager">
   {%- endif -%}
-  <div class="about-hero__overlay">
-    <h1 class="about-hero__title">{{ section.settings.hero_title | default: 'Over Cavarè' }}</h1>
+  <div class="cv-about-hero__overlay">
+    <h1 class="cv-about-hero__title">{{ section.settings.hero_title }}</h1>
   </div>
-</div>
+</section>
 
-<div class="about-content">
-  <p>{{ section.settings.story_text | default: 'Cavarè is geboren vanuit een eenvoudige overtuiging: kwaliteit hoeft niet luid te zijn. Elk stuk in onze collectie is met intentie gemaakt — tijdloos van snit, zuiver van materiaal, eerlijk in zijn uitstraling.' }}</p>
-</div>
+<!-- Merkverhaal -->
+<section class="cv-about-story">
+  <div class="cv-about-story__inner">
+    <span class="cv-about-story__label">{{ section.settings.story_label }}</span>
+    <h2 class="cv-about-story__title">{{ section.settings.story_title }}</h2>
+    <p class="cv-about-story__text">{{ section.settings.story_text_1 }}</p>
+    {%- if section.settings.story_text_2 != blank -%}
+      <p class="cv-about-story__text">{{ section.settings.story_text_2 }}</p>
+    {%- endif -%}
+  </div>
+</section>
 
-<div class="section section--cream-dark">
-  <div class="about-values">
-    <div class="about-value">
-      <p class="about-value__label">{{ section.settings.value1_title | default: 'Kwaliteit' }}</p>
-      <p class="about-value__text">{{ section.settings.value1_text | default: 'Alleen de beste materialen. Elk stuk doorloopt een strenge selectie voordat het de naam Cavarè draagt.' }}</p>
+<!-- Waarden -->
+<section class="cv-about-values">
+  <div class="cv-about-values__inner">
+    <div class="cv-about-values__header">
+      <span class="cv-about-values__label">Onze filosofie</span>
+      <h2 class="cv-about-values__title">Waar Cavarè voor staat</h2>
     </div>
-    <div class="about-value">
-      <p class="about-value__label">{{ section.settings.value2_title | default: 'Tijdloosheid' }}</p>
-      <p class="about-value__text">{{ section.settings.value2_text | default: 'Geen seizoenstrends. Kleding die je jaar na jaar draagt, zonder dat het ooit gedateerd aanvoelt.' }}</p>
-    </div>
-    <div class="about-value">
-      <p class="about-value__label">{{ section.settings.value3_title | default: 'Eerlijkheid' }}</p>
-      <p class="about-value__text">{{ section.settings.value3_text | default: 'Transparant over herkomst en productie. Gemaakt met respect voor vakmanschap en de mensen erachter.' }}</p>
+    <div class="cv-about-values__grid">
+      <div class="cv-about-value">
+        <p class="cv-about-value__name">{{ section.settings.value1_title }}</p>
+        <div class="cv-about-value__line"></div>
+        <p class="cv-about-value__text">{{ section.settings.value1_text }}</p>
+      </div>
+      <div class="cv-about-value">
+        <p class="cv-about-value__name">{{ section.settings.value2_title }}</p>
+        <div class="cv-about-value__line"></div>
+        <p class="cv-about-value__text">{{ section.settings.value2_text }}</p>
+      </div>
+      <div class="cv-about-value">
+        <p class="cv-about-value__name">{{ section.settings.value3_title }}</p>
+        <div class="cv-about-value__line"></div>
+        <p class="cv-about-value__text">{{ section.settings.value3_text }}</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- CTA -->
+<section class="cv-about-cta">
+  <h2 class="cv-about-cta__title">Ontdek de collectie</h2>
+  <a href="/collections/all" class="cv-about-cta__btn">Shop Nu</a>
+</section>
 
 {% schema %}
 {
-  "name": "Over Ons pagina",
+  "name": "Over Cavarè",
   "settings": [
     {
       "type": "image_picker",
@@ -46,10 +111,28 @@
       "default": "Over Cavarè"
     },
     {
+      "type": "text",
+      "id": "story_label",
+      "label": "Verhaal label",
+      "default": "Ons verhaal"
+    },
+    {
+      "type": "text",
+      "id": "story_title",
+      "label": "Verhaal titel",
+      "default": "Gemaakt met intentie"
+    },
+    {
       "type": "textarea",
-      "id": "story_text",
-      "label": "Merkverhaal tekst",
-      "default": "Cavarè is geboren vanuit een eenvoudige overtuiging: kwaliteit hoeft niet luid te zijn."
+      "id": "story_text_1",
+      "label": "Verhaal alinea 1",
+      "default": "Cavarè is geboren vanuit een eenvoudige overtuiging: kwaliteit hoeft niet luid te zijn. Elk stuk in onze collectie is met intentie gemaakt — tijdloos van snit, zuiver van materiaal, eerlijk in zijn uitstraling."
+    },
+    {
+      "type": "textarea",
+      "id": "story_text_2",
+      "label": "Verhaal alinea 2",
+      "default": "Wij geloven dat kleding meer is dan stof. Het is een keuze — om te investeren in iets dat blijft. Niet voor het seizoen. Niet voor de trend. Voor de lange termijn."
     },
     {
       "type": "text",
@@ -61,7 +144,7 @@
       "type": "textarea",
       "id": "value1_text",
       "label": "Waarde 1 tekst",
-      "default": "Alleen de beste materialen."
+      "default": "Alleen de beste materialen. Elk stuk doorloopt een strenge selectie voordat het de naam Cavarè draagt."
     },
     {
       "type": "text",
@@ -73,7 +156,7 @@
       "type": "textarea",
       "id": "value2_text",
       "label": "Waarde 2 tekst",
-      "default": "Geen seizoenstrends."
+      "default": "Geen seizoenstrends. Kleding die je jaar na jaar draagt, zonder dat het ooit gedateerd aanvoelt."
     },
     {
       "type": "text",
@@ -85,7 +168,7 @@
       "type": "textarea",
       "id": "value3_text",
       "label": "Waarde 3 tekst",
-      "default": "Transparant over herkomst en productie."
+      "default": "Transparant over herkomst en productie. Gemaakt met respect voor vakmanschap en de mensen erachter."
     }
   ]
 }

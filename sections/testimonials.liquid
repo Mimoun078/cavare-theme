@@ -1,0 +1,73 @@
+<style>
+  .cv-reviews { padding: 6rem 2rem; background: #F5F0EB; }
+  .cv-reviews__header { text-align: center; margin-bottom: 4rem; }
+  .cv-reviews__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #7A6E65; margin-bottom: 0.75rem; }
+  .cv-reviews__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0; }
+  .cv-reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1280px; margin: 0 auto; }
+  .cv-review { background: #FEFEFE; padding: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .cv-review__stars { display: flex; gap: 3px; }
+  .cv-review__star { width: 14px; height: 14px; fill: #2A1B0F; }
+  .cv-review__text { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.85; color: rgba(35,31,32,0.75); margin: 0; flex: 1; }
+  .cv-review__footer { display: flex; flex-direction: column; gap: 0.2rem; }
+  .cv-review__name { font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; font-weight: 500; }
+  .cv-review__meta { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #7A6E65; }
+  @media (max-width: 900px) { .cv-reviews__grid { grid-template-columns: 1fr; max-width: 480px; } }
+  @media (max-width: 480px) { .cv-reviews { padding: 4rem 1.25rem; } }
+</style>
+
+{%- assign star_svg -%}
+<svg class="cv-review__star" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.39 4.84 5.34.78-3.86 3.76.91 5.32L10 13.27l-4.78 2.51.91-5.32L2.27 6.62l5.34-.78z"/></svg>
+{%- endassign -%}
+
+<section class="cv-reviews">
+  <div class="cv-reviews__header">
+    <span class="cv-reviews__label">{{ section.settings.label }}</span>
+    <h2 class="cv-reviews__title">{{ section.settings.title }}</h2>
+  </div>
+  <div class="cv-reviews__grid">
+
+    {%- for i in (1..3) -%}
+      {%- assign text_key = 'review' | append: i | append: '_text' -%}
+      {%- assign name_key = 'review' | append: i | append: '_name' -%}
+      {%- assign meta_key = 'review' | append: i | append: '_meta' -%}
+      {%- if section.settings[text_key] != blank -%}
+        <div class="cv-review">
+          <div class="cv-review__stars">
+            {{ star_svg }}{{ star_svg }}{{ star_svg }}{{ star_svg }}{{ star_svg }}
+          </div>
+          <p class="cv-review__text">"{{ section.settings[text_key] }}"</p>
+          <div class="cv-review__footer">
+            <span class="cv-review__name">{{ section.settings[name_key] }}</span>
+            {%- if section.settings[meta_key] != blank -%}
+              <span class="cv-review__meta">{{ section.settings[meta_key] }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Klein label", "default": "Wat klanten zeggen" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Klantervaringen" },
+    { "type": "header", "content": "Review 1" },
+    { "type": "textarea", "id": "review1_text", "label": "Tekst", "default": "Topkwaliteit, echt iets anders dan wat je in de winkelstraat vindt. De jas zit perfect en voelt luxe aan. Snel geleverd ook." },
+    { "type": "text", "id": "review1_name", "label": "Naam", "default": "Youssef M." },
+    { "type": "text", "id": "review1_meta", "label": "Product (optioneel)", "default": "Cavarè Jas — Mocca Brown" },
+    { "type": "header", "content": "Review 2" },
+    { "type": "textarea", "id": "review2_text", "label": "Tekst", "default": "Eindelijk een merk dat begrijpt wat tijdloze stijl betekent. De t-shirts zijn van uitstekende kwaliteit en vallen perfect." },
+    { "type": "text", "id": "review2_name", "label": "Naam", "default": "Daan R." },
+    { "type": "text", "id": "review2_meta", "label": "Product (optioneel)", "default": "T-Shirt Collection" },
+    { "type": "header", "content": "Review 3" },
+    { "type": "textarea", "id": "review3_text", "label": "Tekst", "default": "Geweldige kwaliteit voor de prijs. De bodywarmer is super mooi afgewerkt. Ga zeker nog meer bestellen." },
+    { "type": "text", "id": "review3_name", "label": "Naam", "default": "Ilias B." },
+    { "type": "text", "id": "review3_meta", "label": "Product (optioneel)", "default": "Bodywarmer" }
+  ],
+  "presets": [{ "name": "Reviews" }]
+}
+{% endschema %}

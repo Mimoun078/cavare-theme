@@ -49,12 +49,14 @@
         "button_label": "Lees ons verhaal",
         "button_url": "/pages/over-ons"
       }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "settings": {
+        "label": "Wat klanten zeggen",
+        "title": "Klantervaringen"
+      }
     }
   },
-  "order": [
-    "hero",
-    "featured",
-    "shop-the-look",
-    "story"
-  ]
+  "order": ["hero", "featured", "shop-the-look", "story", "reviews"]
 }
