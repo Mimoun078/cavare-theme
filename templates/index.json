@@ -1,10 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero-banner",
       "settings": {
+        "image": "shopify://shop_images/herontwerp_een_kledi.png",
         "label": "Nieuwe Collectie",
-        "title": "Modern Elegance.\nTimeless Simplicity.",
+        "title": "Modern Elegance.Timeless Simplicity.",
         "subtitle": "Crafted in Italy. Made to last.",
         "button_label": "Shop Nu",
         "button_url": "/collections/all"
@@ -15,6 +25,7 @@
       "settings": {
         "label": "Onze Collectie",
         "title": "Onze Bestsellers",
+        "collection": "",
         "show_button": true,
         "button_label": "Bekijk alle producten",
         "button_url": "/collections/all"
@@ -24,7 +35,9 @@
       "type": "shop-the-look",
       "settings": {
         "label": "Compleet de look",
-        "title": "Shop the Look"
+        "title": "Shop the Look",
+        "product_1": "",
+        "product_2": ""
       }
     },
     "story": {
@@ -38,5 +51,10 @@
       }
     }
   },
-  "order": ["hero", "featured", "shop-the-look", "story"]
+  "order": [
+    "hero",
+    "featured",
+    "shop-the-look",
+    "story"
+  ]
 }
