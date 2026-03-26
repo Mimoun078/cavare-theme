@@ -3,16 +3,18 @@
     <img
       class="hero__image"
       src="{{ section.settings.image | image_url: width: 2000 }}"
-      srcset="{{ section.settings.image | image_url: width: 800 }} 800w,
-              {{ section.settings.image | image_url: width: 1200 }} 1200w,
-              {{ section.settings.image | image_url: width: 2000 }} 2000w"
-      sizes="100vw"
       alt="{{ section.settings.image.alt | default: 'Cavarè Clothing' }}"
       loading="eager"
       fetchpriority="high"
     >
   {%- else -%}
-    <div class="hero__image" style="background: linear-gradient(135deg, #2A1B0F 0%, #231F20 100%);"></div>
+    <img
+      class="hero__image"
+      src="{{ 'cavare-model.jpeg' | asset_url }}"
+      alt="Cavarè Clothing"
+      loading="eager"
+      fetchpriority="high"
+    >
   {%- endif -%}
 
   <div class="hero__overlay"></div>
