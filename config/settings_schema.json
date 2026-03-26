@@ -34,7 +34,7 @@
           {
             "type": "color",
             "id": "button",
-            "label": "Knop achtergrond",
+            "label": "Knop",
             "default": "#2A1B0F"
           },
           {
@@ -82,6 +82,184 @@
         "id": "type_header_font",
         "label": "Heading font",
         "default": "cinzel_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "label": "Heading schaal",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "Body schaal",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 100,
+        "default": 1280,
+        "unit": "px",
+        "label": "Paginabreedte"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Ruimte tussen secties",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "name": "Knoppen",
+    "settings": [
+      {
+        "type": "range",
+        "id": "buttons_border_thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "px",
+        "label": "Randdikte",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Randopaciteit",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "buttons_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Afronding",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Schaduwopaciteit",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_horizontal_offset",
+        "min": -12,
+        "max": 12,
+        "step": 2,
+        "unit": "px",
+        "label": "Schaduw horizontaal",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_vertical_offset",
+        "min": -12,
+        "max": 12,
+        "step": 2,
+        "unit": "px",
+        "label": "Schaduw verticaal",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_blur",
+        "min": 0,
+        "max": 20,
+        "step": 5,
+        "unit": "px",
+        "label": "Schaduwvervaging",
+        "default": 0
+      }
+    ]
+  },
+  {
+    "name": "Afbeeldingen",
+    "settings": [
+      {
+        "type": "select",
+        "id": "media_size",
+        "options": [
+          { "value": "small", "label": "Klein" },
+          { "value": "medium", "label": "Middel" },
+          { "value": "large", "label": "Groot" }
+        ],
+        "default": "medium",
+        "label": "Productafbeelding grootte"
+      }
+    ]
+  },
+  {
+    "name": "Kaarten",
+    "settings": [
+      {
+        "type": "select",
+        "id": "card_style",
+        "options": [
+          { "value": "standard", "label": "Standaard" },
+          { "value": "card", "label": "Kaart" }
+        ],
+        "default": "standard",
+        "label": "Productkaartstijl"
+      },
+      {
+        "type": "range",
+        "id": "card_image_ratio",
+        "min": 0.8,
+        "max": 1.8,
+        "step": 0.2,
+        "default": 0.8,
+        "label": "Afbeeldingsverhouding"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_secondary_image",
+        "default": true,
+        "label": "Tweede afbeelding tonen"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_vendor",
+        "default": false,
+        "label": "Leverancier tonen"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_rating",
+        "default": false,
+        "label": "Beoordeling tonen"
       }
     ]
   },
@@ -96,6 +274,32 @@
     ]
   },
   {
+    "name": "Socialmedia",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      }
+    ]
+  },
+  {
+    "name": "Winkelwagen",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "options": [
+          { "value": "drawer", "label": "Zijpaneel" },
+          { "value": "page", "label": "Pagina" },
+          { "value": "notification", "label": "Melding" }
+        ],
+        "default": "notification",
+        "label": "Winkelwagentype"
+      }
+    ]
+  },
+  {
     "name": "Animaties",
     "settings": [
       {
@@ -103,16 +307,6 @@
         "id": "animations_reveal_on_scroll",
         "label": "Animaties bij scrollen",
         "default": false
-      }
-    ]
-  },
-  {
-    "name": "Social media",
-    "settings": [
-      {
-        "type": "url",
-        "id": "social_instagram_link",
-        "label": "Instagram"
       }
     ]
   }

@@ -1,106 +1,197 @@
-<header class="header">
-  <div class="header__inner">
+<style>
+  .cavare-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #FEFEFE;
+    border-bottom: 1px solid #E0D8CF;
+  }
+  .cavare-header__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+  .cavare-header__logo a {
+    font-family: 'Cinzel', 'Georgia', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.3em;
+    color: #2A1B0F;
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .cavare-header__logo img {
+    height: 36px;
+    width: auto;
+  }
+  .cavare-header__nav {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cavare-header__nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #231F20;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .cavare-header__nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #2A1B0F;
+    transition: width 0.3s ease;
+  }
+  .cavare-header__nav a:hover::after { width: 100%; }
+  .cavare-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .cavare-header__cart {
+    position: relative;
+    color: #231F20;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .cavare-header__cart-count {
+    position: absolute;
+    top: -7px;
+    right: -9px;
+    background: #2A1B0F;
+    color: #FEFEFE;
+    font-size: 0.55rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+  }
+  .cavare-header__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .cavare-header__hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #231F20;
+  }
+  .cavare-mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #FEFEFE;
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .cavare-mobile-nav.open { display: flex; }
+  .cavare-mobile-nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: #2A1B0F;
+    text-decoration: none;
+  }
+  .cavare-mobile-nav__close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #231F20;
+  }
+  @media (max-width: 768px) {
+    .cavare-header__nav { display: none; }
+    .cavare-header__hamburger { display: flex; }
+  }
+</style>
 
-    {%- comment -%} Logo links {%- endcomment -%}
-    <div class="header__logo">
-      <a href="/" aria-label="{{ shop.name }}">
+<div class="cavare-header">
+  <div class="cavare-header__inner">
+
+    <div class="cavare-header__logo">
+      <a href="/">
         {%- if section.settings.logo != blank -%}
-          <img
-            src="{{ section.settings.logo | image_url: width: 300 }}"
-            alt="{{ shop.name }}"
-            width="{{ section.settings.logo_width }}"
-            height="auto"
-            loading="eager"
-          >
+          <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" width="{{ section.settings.logo_width }}" height="auto">
         {%- else -%}
-          <span class="header__logo-text">CAVARÈ</span>
+          CAVARÈ
         {%- endif -%}
       </a>
     </div>
 
-    {%- comment -%} Navigatie midden {%- endcomment -%}
-    <nav class="header__nav-wrap">
-      <ul class="header__nav" role="list">
-        <li><a href="/collections/all" {% if request.path contains '/collections' %}class="active"{% endif %}>{{ 'navigation.shop' | t }}</a></li>
-        <li><a href="/pages/over-ons" {% if request.path contains 'over-ons' %}class="active"{% endif %}>{{ 'navigation.about' | t }}</a></li>
-        <li><a href="/pages/contact" {% if request.path contains 'contact' %}class="active"{% endif %}>{{ 'navigation.contact' | t }}</a></li>
+    <nav>
+      <ul class="cavare-header__nav">
+        <li><a href="/collections/all">Shop</a></li>
+        <li><a href="/pages/over-ons">Over ons</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
       </ul>
     </nav>
 
-    {%- comment -%} Acties rechts {%- endcomment -%}
-    <div class="header__actions">
-
-      {%- comment -%} Taalswitch {%- endcomment -%}
-      {%- if localization.available_languages.size > 1 -%}
-        <div class="header__lang">
-          {%- for language in localization.available_languages -%}
-            {%- if language.iso_code == localization.language.iso_code -%}
-              <span>{{ language.iso_code | upcase }}</span>
-            {%- else -%}
-              <a href="{{ language | localization_url }}" hreflang="{{ language.iso_code }}">{{ language.iso_code | upcase }}</a>
-            {%- endif -%}
-            {%- unless forloop.last -%} / {%- endunless -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-      {%- comment -%} Winkelwagen {%- endcomment -%}
-      <a href="/cart" class="header__cart-icon" aria-label="Winkelwagen">
+    <div class="cavare-header__actions">
+      <a href="/cart" class="cavare-header__cart" aria-label="Winkelwagen">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 01-8 0"/>
         </svg>
-        <span class="header__cart-count" aria-label="Aantal items">0</span>
+        <span class="cavare-header__cart-count" id="cavare-cart-count">0</span>
       </a>
-
-      {%- comment -%} Hamburger menu (mobiel) {%- endcomment -%}
-      <button class="header__menu-toggle" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-nav">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="cavare-header__hamburger" id="cavare-menu-open" aria-label="Menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </div>
-</header>
+</div>
 
-{%- comment -%} Mobiel menu {%- endcomment -%}
-<div id="mobile-nav" class="mobile-nav" aria-hidden="true">
-  <button class="mobile-nav__close" aria-label="Menu sluiten">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  </button>
-  <nav>
-    <a href="/collections/all">{{ 'navigation.shop' | t }}</a>
-    <a href="/pages/over-ons">{{ 'navigation.about' | t }}</a>
-    <a href="/pages/contact">{{ 'navigation.contact' | t }}</a>
-  </nav>
+<div class="cavare-mobile-nav" id="cavare-mobile-nav">
+  <button class="cavare-mobile-nav__close" id="cavare-menu-close" aria-label="Sluiten">✕</button>
+  <a href="/collections/all" onclick="document.getElementById('cavare-mobile-nav').classList.remove('open')">Shop</a>
+  <a href="/pages/over-ons" onclick="document.getElementById('cavare-mobile-nav').classList.remove('open')">Over ons</a>
+  <a href="/pages/contact" onclick="document.getElementById('cavare-mobile-nav').classList.remove('open')">Contact</a>
 </div>
 
 <script>
-  (function() {
-    const toggle = document.querySelector('.header__menu-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    const closeBtn = document.querySelector('.mobile-nav__close');
-
-    function openMenu() {
-      mobileNav.classList.add('is-open');
-      mobileNav.setAttribute('aria-hidden', 'false');
-      toggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+  document.getElementById('cavare-menu-open').addEventListener('click', function() {
+    document.getElementById('cavare-mobile-nav').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('cavare-menu-close').addEventListener('click', function() {
+    document.getElementById('cavare-mobile-nav').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+  fetch('/cart.js').then(r => r.json()).then(function(cart) {
+    var badge = document.getElementById('cavare-cart-count');
+    if (cart.item_count > 0) {
+      badge.textContent = cart.item_count;
+      badge.style.display = 'flex';
     }
-    function closeMenu() {
-      mobileNav.classList.remove('is-open');
-      mobileNav.setAttribute('aria-hidden', 'true');
-      toggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    if (toggle) toggle.addEventListener('click', openMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-  })();
+  });
 </script>
 
 {% schema %}

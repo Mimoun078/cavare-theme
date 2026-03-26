@@ -1,30 +1,37 @@
-<section class="brand-story">
-  <div class="brand-story__image-wrap">
+<style>
+  .cavare-story { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+  .cavare-story__img-wrap { overflow: hidden; }
+  .cavare-story__img { width: 100%; height: 100%; object-fit: cover; min-height: 400px; }
+  .cavare-story__content { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem; background: #231F20; color: #FEFEFE; }
+  .cavare-story__label { font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(254,254,254,0.5); margin-bottom: 1.5rem; display: block; }
+  .cavare-story__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 400; letter-spacing: 0.06em; color: #FEFEFE; margin: 0 0 1.5rem; }
+  .cavare-story__text { font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.85; color: rgba(254,254,254,0.72); margin: 0 0 2.5rem; }
+  .cavare-story__btn { display: inline-block; padding: 0.9rem 2.5rem; border: 1.5px solid rgba(254,254,254,0.5); color: #FEFEFE; font-family: 'Inter', sans-serif; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; align-self: flex-start; }
+  .cavare-story__btn:hover { background: #FEFEFE; color: #231F20; border-color: #FEFEFE; }
+  @media (max-width: 900px) {
+    .cavare-story { grid-template-columns: 1fr; }
+    .cavare-story__content { padding: 3.5rem 2rem; }
+    .cavare-story__img { min-height: 350px; }
+  }
+</style>
+
+<section class="cavare-story">
+  <div class="cavare-story__img-wrap">
     {%- if section.settings.image != blank -%}
-      <img
-        class="brand-story__image"
-        src="{{ section.settings.image | image_url: width: 1200 }}"
-        alt="{{ section.settings.image.alt | default: 'Cavarè' }}"
-        loading="lazy"
-      >
+      <img class="cavare-story__img" src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.image.alt | default: 'Cavarè' }}" loading="lazy">
     {%- else -%}
-      <img
-        class="brand-story__image"
-        src="{{ 'cavare-jas-brown.jpeg' | asset_url }}"
-        alt="Cavarè"
-        loading="lazy"
-      >
+      <img class="cavare-story__img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè" loading="lazy">
     {%- endif -%}
   </div>
 
-  <div class="brand-story__content">
+  <div class="cavare-story__content">
     {%- if section.settings.label != blank -%}
-      <span class="brand-story__label">{{ section.settings.label }}</span>
+      <span class="cavare-story__label">{{ section.settings.label }}</span>
     {%- endif -%}
-    <h2 class="brand-story__title">{{ section.settings.title }}</h2>
-    <p class="brand-story__text">{{ section.settings.text }}</p>
+    <h2 class="cavare-story__title">{{ section.settings.title }}</h2>
+    <p class="cavare-story__text">{{ section.settings.text }}</p>
     {%- if section.settings.button_label != blank -%}
-      <a href="{{ section.settings.button_url }}" class="btn btn--light">{{ section.settings.button_label }}</a>
+      <a href="{{ section.settings.button_url | default: '/pages/over-ons' }}" class="cavare-story__btn">{{ section.settings.button_label }}</a>
     {%- endif -%}
   </div>
 </section>
@@ -33,45 +40,13 @@
 {
   "name": "Merkverhaal",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Foto"
-    },
-    {
-      "type": "text",
-      "id": "label",
-      "label": "Klein label",
-      "default": "Ons Verhaal"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titel",
-      "default": "Gemaakt met Intentie"
-    },
-    {
-      "type": "textarea",
-      "id": "text",
-      "label": "Tekst",
-      "default": "Cavarè is geboren vanuit een passie voor tijdloze kwaliteit. Elk stuk is met zorg geselecteerd — ontworpen om generaties mee te gaan. Geen trends. Geen compromissen. Alleen kleding die je beter maakt."
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Knoptekst",
-      "default": "Lees ons verhaal"
-    },
-    {
-      "type": "url",
-      "id": "button_url",
-      "label": "Knop link"
-    }
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "text", "id": "label", "label": "Klein label", "default": "Ons Verhaal" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Gemaakt met Intentie" },
+    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Cavarè is geboren vanuit een passie voor tijdloze kwaliteit. Elk stuk is met zorg geselecteerd — ontworpen om generaties mee te gaan. Geen trends. Geen compromissen. Alleen kleding die je beter maakt." },
+    { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Lees ons verhaal" },
+    { "type": "url", "id": "button_url", "label": "Knop link" }
   ],
-  "presets": [
-    {
-      "name": "Merkverhaal"
-    }
-  ]
+  "presets": [{ "name": "Merkverhaal" }]
 }
 {% endschema %}
