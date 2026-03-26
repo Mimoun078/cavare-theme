@@ -1,91 +1,91 @@
 <style>
-  .cavare-products { padding: 5rem 2rem; background: #FEFEFE; }
-  .cavare-products__header { text-align: center; margin-bottom: 3.5rem; }
-  .cavare-products__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: #7A6E65; margin-bottom: 0.75rem; }
-  .cavare-products__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 400; letter-spacing: 0.08em; color: #231F20; margin: 0; }
-  .cavare-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1280px; margin: 0 auto 3rem; }
-  .cavare-product-card { display: block; text-decoration: none; color: inherit; }
-  .cavare-product-card__img-wrap { position: relative; overflow: hidden; aspect-ratio: 3/4; background: #F5F0EB; margin-bottom: 1rem; }
-  .cavare-product-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-  .cavare-product-card:hover .cavare-product-card__img { transform: scale(1.04); }
-  .cavare-product-card__overlay { position: absolute; bottom: 0; left: 0; right: 0; background: #2A1B0F; color: #FEFEFE; text-align: center; padding: 0.85rem; font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s ease; }
-  .cavare-product-card:hover .cavare-product-card__overlay { transform: translateY(0); }
-  .cavare-product-card__name { font-family: 'Cinzel', serif; font-size: 0.88rem; letter-spacing: 0.06em; margin: 0 0 0.3rem; color: #231F20; }
-  .cavare-product-card__sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #7A6E65; margin: 0 0 0.4rem; }
-  .cavare-product-card__price { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: #2A1B0F; margin: 0; }
-  .cavare-products__cta { text-align: center; }
-  .cavare-products__cta a { display: inline-block; padding: 0.9rem 2.5rem; border: 1.5px solid #2A1B0F; color: #2A1B0F; font-family: 'Inter', sans-serif; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; }
-  .cavare-products__cta a:hover { background: #2A1B0F; color: #FEFEFE; }
-  @media (max-width: 1024px) { .cavare-products__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .cavare-products { padding: 3.5rem 1.25rem; } .cavare-products__grid { gap: 1rem; } }
+  .cv-products { padding: 5.5rem 2rem; background: #FEFEFE; }
+  .cv-products__header { text-align: center; margin-bottom: 4rem; }
+  .cv-products__label { display: block; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #7A6E65; margin-bottom: 0.6rem; }
+  .cv-products__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0; }
+  .cv-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1280px; margin: 0 auto 3.5rem; }
+  .cv-card { display: block; text-decoration: none; color: inherit; }
+  .cv-card__media { position: relative; overflow: hidden; aspect-ratio: 3/4; background: #F5F0EB; margin-bottom: 1rem; }
+  .cv-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+  .cv-card:hover .cv-card__img { transform: scale(1.04); }
+  .cv-card__cta { position: absolute; bottom: 0; left: 0; right: 0; background: #231F20; color: #FEFEFE; text-align: center; padding: 0.9rem; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s ease; }
+  .cv-card:hover .cv-card__cta { transform: translateY(0); }
+  .cv-card__name { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.06em; margin: 0 0 0.25rem; color: #231F20; }
+  .cv-card__sub { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: #7A6E65; margin: 0 0 0.3rem; }
+  .cv-card__price { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500; color: #2A1B0F; margin: 0; }
+  .cv-products__cta { text-align: center; }
+  .cv-products__cta-link { display: inline-block; padding: 0.85rem 2.8rem; border: 1px solid #231F20; color: #231F20; font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s ease; }
+  .cv-products__cta-link:hover { background: #231F20; color: #FEFEFE; }
+  @media (max-width: 1024px) { .cv-products__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .cv-products { padding: 3.5rem 1.25rem; } .cv-products__grid { gap: 0.75rem; } }
 </style>
 
-<section class="cavare-products">
-  <div class="cavare-products__header">
-    <span class="cavare-products__label">{{ section.settings.label }}</span>
-    <h2 class="cavare-products__title">{{ section.settings.title }}</h2>
+<section class="cv-products">
+  <div class="cv-products__header">
+    <span class="cv-products__label">{{ section.settings.label }}</span>
+    <h2 class="cv-products__title">{{ section.settings.title }}</h2>
   </div>
 
   {%- assign col = collections[section.settings.collection] -%}
   {%- if col != blank and col.products.size > 0 -%}
-    <div class="cavare-products__grid">
+    <div class="cv-products__grid">
       {%- for product in col.products limit: 4 -%}
-        <a href="{{ product.url }}" class="cavare-product-card">
-          <div class="cavare-product-card__img-wrap">
+        <a href="{{ product.url }}" class="cv-card">
+          <div class="cv-card__media">
             {%- if product.featured_image -%}
-              <img class="cavare-product-card__img" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" loading="lazy">
+              <img class="cv-card__img" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" loading="lazy">
             {%- endif -%}
-            <div class="cavare-product-card__overlay">Bekijk product</div>
+            <div class="cv-card__cta">Bekijk product</div>
           </div>
-          <p class="cavare-product-card__name">{{ product.title }}</p>
-          <p class="cavare-product-card__price">{{ product.price | money }}</p>
+          <p class="cv-card__name">{{ product.title }}</p>
+          <p class="cv-card__price">{{ product.price | money }}</p>
         </a>
       {%- endfor -%}
     </div>
   {%- else -%}
-    <div class="cavare-products__grid">
-      <a href="/collections/all" class="cavare-product-card">
-        <div class="cavare-product-card__img-wrap">
-          <img class="cavare-product-card__img" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="T-Shirts" loading="lazy">
-          <div class="cavare-product-card__overlay">Bekijk product</div>
+    <div class="cv-products__grid">
+      <a href="/collections/all" class="cv-card">
+        <div class="cv-card__media">
+          <img class="cv-card__img" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="T-Shirts" loading="lazy">
+          <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cavare-product-card__name">T-Shirt Collection</p>
-        <p class="cavare-product-card__sub">Bruin · Navy · Taupe</p>
-        <p class="cavare-product-card__price">€ 79,00</p>
+        <p class="cv-card__name">T-Shirt Collection</p>
+        <p class="cv-card__sub">Bruin · Navy · Taupe</p>
+        <p class="cv-card__price">€ 79,00</p>
       </a>
-      <a href="/collections/all" class="cavare-product-card">
-        <div class="cavare-product-card__img-wrap">
-          <img class="cavare-product-card__img" src="{{ 'cavare-tshirt-red.jpeg' | asset_url }}" alt="T-Shirt Burgundy" loading="lazy">
-          <div class="cavare-product-card__overlay">Bekijk product</div>
+      <a href="/collections/all" class="cv-card">
+        <div class="cv-card__media">
+          <img class="cv-card__img" src="{{ 'cavare-tshirt-red.jpeg' | asset_url }}" alt="T-Shirt Burgundy" loading="lazy">
+          <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cavare-product-card__name">T-Shirt Burgundy</p>
-        <p class="cavare-product-card__sub">Bordeauxrood</p>
-        <p class="cavare-product-card__price">€ 79,00</p>
+        <p class="cv-card__name">T-Shirt Burgundy</p>
+        <p class="cv-card__sub">Bordeauxrood</p>
+        <p class="cv-card__price">€ 79,00</p>
       </a>
-      <a href="/collections/all" class="cavare-product-card">
-        <div class="cavare-product-card__img-wrap">
-          <img class="cavare-product-card__img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
-          <div class="cavare-product-card__overlay">Bekijk product</div>
+      <a href="/collections/all" class="cv-card">
+        <div class="cv-card__media">
+          <img class="cv-card__img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
+          <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cavare-product-card__name">Cavarè Jas</p>
-        <p class="cavare-product-card__sub">Mocca Brown</p>
-        <p class="cavare-product-card__price">€ 249,00</p>
+        <p class="cv-card__name">Cavarè Jas</p>
+        <p class="cv-card__sub">Mocca Brown</p>
+        <p class="cv-card__price">€ 249,00</p>
       </a>
-      <a href="/collections/all" class="cavare-product-card">
-        <div class="cavare-product-card__img-wrap">
-          <img class="cavare-product-card__img" src="{{ 'cavare-bodywarmer.jpeg' | asset_url }}" alt="Bodywarmer" loading="lazy">
-          <div class="cavare-product-card__overlay">Bekijk product</div>
+      <a href="/collections/all" class="cv-card">
+        <div class="cv-card__media">
+          <img class="cv-card__img" src="{{ 'cavare-bodywarmer.jpeg' | asset_url }}" alt="Bodywarmer" loading="lazy">
+          <div class="cv-card__cta">Bekijk product</div>
         </div>
-        <p class="cavare-product-card__name">Bodywarmer</p>
-        <p class="cavare-product-card__sub">Premium kwaliteit</p>
-        <p class="cavare-product-card__price">€ 189,00</p>
+        <p class="cv-card__name">Bodywarmer</p>
+        <p class="cv-card__sub">Premium kwaliteit</p>
+        <p class="cv-card__price">€ 189,00</p>
       </a>
     </div>
   {%- endif -%}
 
   {%- if section.settings.show_button -%}
-    <div class="cavare-products__cta">
-      <a href="{{ section.settings.button_url | default: '/collections/all' }}">{{ section.settings.button_label }}</a>
+    <div class="cv-products__cta">
+      <a href="{{ section.settings.button_url | default: '/collections/all' }}" class="cv-products__cta-link">{{ section.settings.button_label }}</a>
     </div>
   {%- endif -%}
 </section>
@@ -95,7 +95,7 @@
   "name": "Uitgelichte Collectie",
   "settings": [
     { "type": "text", "id": "label", "label": "Klein label", "default": "Onze Collectie" },
-    { "type": "text", "id": "title", "label": "Titel", "default": "Nieuw Binnen" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Onze Bestsellers" },
     { "type": "collection", "id": "collection", "label": "Collectie" },
     { "type": "checkbox", "id": "show_button", "label": "Toon knop", "default": true },
     { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Bekijk alle producten" },

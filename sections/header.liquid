@@ -1,142 +1,41 @@
 <style>
-  .cavare-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #FEFEFE;
-    border-bottom: 1px solid #E0D8CF;
-  }
-  .cavare-header__inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70px;
-  }
-  .cavare-header__logo a {
-    font-family: 'Cinzel', 'Georgia', serif;
-    font-size: 1.3rem;
-    letter-spacing: 0.3em;
-    color: #2A1B0F;
-    text-decoration: none;
-    font-weight: 400;
-  }
-  .cavare-header__logo img {
-    height: 36px;
-    width: auto;
-  }
-  .cavare-header__nav {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .cavare-header__nav a {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #231F20;
-    text-decoration: none;
-    position: relative;
-    padding-bottom: 2px;
-  }
-  .cavare-header__nav a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #2A1B0F;
-    transition: width 0.3s ease;
-  }
-  .cavare-header__nav a:hover::after { width: 100%; }
-  .cavare-header__actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  .cavare-header__cart {
-    position: relative;
-    color: #231F20;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
-  .cavare-header__cart-count {
-    position: absolute;
-    top: -7px;
-    right: -9px;
-    background: #2A1B0F;
-    color: #FEFEFE;
-    font-size: 0.55rem;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-  }
-  .cavare-header__hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-  }
-  .cavare-header__hamburger span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: #231F20;
-  }
-  .cavare-mobile-nav {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #FEFEFE;
-    z-index: 200;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-  }
-  .cavare-mobile-nav.open { display: flex; }
-  .cavare-mobile-nav a {
-    font-family: 'Cinzel', serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.1em;
-    color: #2A1B0F;
-    text-decoration: none;
-  }
-  .cavare-mobile-nav__close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #231F20;
-  }
-  @media (max-width: 768px) {
-    .cavare-header__nav { display: none; }
-    .cavare-header__hamburger { display: flex; }
-  }
+  .cv-header { position: sticky; top: 0; z-index: 100; background: #FEFEFE; border-bottom: 1px solid #E8E2DB; }
+  .cv-header__bar { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 68px; }
+  .cv-header__left { display: flex; align-items: center; }
+  .cv-header__center { text-align: center; }
+  .cv-header__right { display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem; }
+  .cv-header__logo { font-family: 'Cinzel', 'Georgia', serif; font-size: 1.15rem; letter-spacing: 0.35em; color: #231F20; text-decoration: none; font-weight: 400; }
+  .cv-header__logo img { height: 32px; width: auto; }
+  .cv-header__hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+  .cv-header__hamburger span { display: block; width: 22px; height: 1.5px; background: #231F20; transition: opacity 0.2s; }
+  .cv-header__hamburger:hover span { opacity: 0.5; }
+  .cv-header__icon { color: #231F20; text-decoration: none; display: flex; align-items: center; position: relative; transition: opacity 0.2s; }
+  .cv-header__icon:hover { opacity: 0.5; }
+  .cv-header__cart-count { position: absolute; top: -6px; right: -8px; background: #2A1B0F; color: #FEFEFE; font-size: 0.5rem; width: 15px; height: 15px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; }
+
+  /* Full-screen nav overlay */
+  .cv-nav { display: none; position: fixed; inset: 0; background: #FEFEFE; z-index: 200; flex-direction: column; padding: 0 3rem; justify-content: center; }
+  .cv-nav.open { display: flex; }
+  .cv-nav__close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #231F20; padding: 8px; line-height: 1; }
+  .cv-nav__links { display: flex; flex-direction: column; gap: 0; }
+  .cv-nav__links a { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 400; letter-spacing: 0.08em; color: #231F20; text-decoration: none; padding: 0.8rem 0; border-bottom: 1px solid #E8E2DB; transition: color 0.2s; display: block; }
+  .cv-nav__links a:first-child { border-top: 1px solid #E8E2DB; }
+  .cv-nav__links a:hover { color: #7A6E65; }
+  .cv-nav__footer { margin-top: 3rem; }
+  .cv-nav__footer p { font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #7A6E65; }
 </style>
 
-<div class="cavare-header">
-  <div class="cavare-header__inner">
+<header class="cv-header">
+  <div class="cv-header__bar">
 
-    <div class="cavare-header__logo">
-      <a href="/">
+    <div class="cv-header__left">
+      <button class="cv-header__hamburger" id="cv-nav-open" aria-label="Menu openen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="cv-header__center">
+      <a href="/" class="cv-header__logo">
         {%- if section.settings.logo != blank -%}
           <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" width="{{ section.settings.logo_width }}" height="auto">
         {%- else -%}
@@ -145,48 +44,44 @@
       </a>
     </div>
 
-    <nav>
-      <ul class="cavare-header__nav">
-        <li><a href="/collections/all">Shop</a></li>
-        <li><a href="/pages/over-ons">Over ons</a></li>
-        <li><a href="/pages/contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="cavare-header__actions">
-      <a href="/cart" class="cavare-header__cart" aria-label="Winkelwagen">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="cv-header__right">
+      <a href="/cart" class="cv-header__icon" aria-label="Winkelwagen">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
           <line x1="3" y1="6" x2="21" y2="6"/>
           <path d="M16 10a4 4 0 01-8 0"/>
         </svg>
-        <span class="cavare-header__cart-count" id="cavare-cart-count">0</span>
+        <span class="cv-header__cart-count" id="cv-cart-count">0</span>
       </a>
-      <button class="cavare-header__hamburger" id="cavare-menu-open" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
-  </div>
-</div>
 
-<div class="cavare-mobile-nav" id="cavare-mobile-nav">
-  <button class="cavare-mobile-nav__close" id="cavare-menu-close" aria-label="Sluiten">✕</button>
-  <a href="/collections/all" onclick="document.getElementById('cavare-mobile-nav').classList.remove('open')">Shop</a>
-  <a href="/pages/over-ons" onclick="document.getElementById('cavare-mobile-nav').classList.remove('open')">Over ons</a>
-  <a href="/pages/contact" onclick="document.getElementById('cavare-mobile-nav').classList.remove('open')">Contact</a>
-</div>
+  </div>
+</header>
+
+<nav class="cv-nav" id="cv-nav">
+  <button class="cv-nav__close" id="cv-nav-close" aria-label="Menu sluiten">&#10005;</button>
+  <div class="cv-nav__links">
+    <a href="/collections/all" onclick="cvNavClose()">Shop</a>
+    <a href="/pages/over-ons" onclick="cvNavClose()">Over ons</a>
+    <a href="/pages/contact" onclick="cvNavClose()">Contact</a>
+  </div>
+  <div class="cv-nav__footer">
+    <p>Cavarè &mdash; Crafted Garments. Made in Italy.</p>
+  </div>
+</nav>
 
 <script>
-  document.getElementById('cavare-menu-open').addEventListener('click', function() {
-    document.getElementById('cavare-mobile-nav').classList.add('open');
+  function cvNavClose() {
+    document.getElementById('cv-nav').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('cv-nav-open').addEventListener('click', function() {
+    document.getElementById('cv-nav').classList.add('open');
     document.body.style.overflow = 'hidden';
   });
-  document.getElementById('cavare-menu-close').addEventListener('click', function() {
-    document.getElementById('cavare-mobile-nav').classList.remove('open');
-    document.body.style.overflow = '';
-  });
-  fetch('/cart.js').then(r => r.json()).then(function(cart) {
-    var badge = document.getElementById('cavare-cart-count');
+  document.getElementById('cv-nav-close').addEventListener('click', cvNavClose);
+  fetch('/cart.js').then(function(r) { return r.json(); }).then(function(cart) {
+    var badge = document.getElementById('cv-cart-count');
     if (cart.item_count > 0) {
       badge.textContent = cart.item_count;
       badge.style.display = 'flex';
@@ -198,21 +93,8 @@
 {
   "name": "Header",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
-      "type": "range",
-      "id": "logo_width",
-      "min": 80,
-      "max": 300,
-      "step": 10,
-      "default": 140,
-      "unit": "px",
-      "label": "Logo breedte"
-    }
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "range", "id": "logo_width", "min": 80, "max": 300, "step": 10, "default": 140, "unit": "px", "label": "Logo breedte" }
   ]
 }
 {% endschema %}

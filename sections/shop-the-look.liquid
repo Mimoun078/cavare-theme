@@ -1,0 +1,116 @@
+<style>
+  .cv-stl { padding: 0; background: #F5F0EB; }
+  .cv-stl__inner { display: grid; grid-template-columns: 1fr 1fr; max-width: 1280px; margin: 0 auto; min-height: 600px; }
+  .cv-stl__photo { overflow: hidden; position: relative; min-height: 500px; }
+  .cv-stl__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .cv-stl__content { display: flex; flex-direction: column; justify-content: center; padding: 4rem 3rem; background: #F5F0EB; }
+  .cv-stl__label { font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #7A6E65; display: block; margin-bottom: 0.6rem; }
+  .cv-stl__title { font-family: 'Cinzel', 'Georgia', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #231F20; margin: 0 0 2.5rem; }
+  .cv-stl__cards { display: flex; flex-direction: column; gap: 1.25rem; }
+  .cv-stl__card { display: grid; grid-template-columns: 90px 1fr; gap: 1rem; background: #FEFEFE; padding: 1rem; text-decoration: none; color: inherit; transition: box-shadow 0.3s ease; }
+  .cv-stl__card:hover { box-shadow: 0 4px 20px rgba(35,31,32,0.1); }
+  .cv-stl__card-img { width: 90px; height: 110px; object-fit: cover; background: #E8E2DB; }
+  .cv-stl__card-info { display: flex; flex-direction: column; justify-content: center; }
+  .cv-stl__card-name { font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.06em; color: #231F20; margin: 0 0 0.3rem; }
+  .cv-stl__card-sub { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: #7A6E65; margin: 0 0 0.5rem; }
+  .cv-stl__card-price { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500; color: #2A1B0F; margin: 0; }
+  .cv-stl__card-arrow { font-size: 0.7rem; color: #7A6E65; margin-top: 0.5rem; letter-spacing: 0.1em; font-family: 'Inter', sans-serif; text-transform: uppercase; }
+  @media (max-width: 900px) {
+    .cv-stl__inner { grid-template-columns: 1fr; }
+    .cv-stl__photo { min-height: 400px; }
+    .cv-stl__content { padding: 3rem 1.5rem; }
+    .cv-stl__cards { flex-direction: row; }
+    .cv-stl__card { grid-template-columns: 70px 1fr; }
+    .cv-stl__card-img { width: 70px; height: 85px; }
+  }
+  @media (max-width: 480px) {
+    .cv-stl__cards { flex-direction: column; }
+  }
+</style>
+
+<section class="cv-stl">
+  <div class="cv-stl__inner">
+
+    <div class="cv-stl__photo">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | default: 'Shop the Look' }}" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'cavare-model.jpeg' | asset_url }}" alt="Shop the Look" loading="lazy">
+      {%- endif -%}
+    </div>
+
+    <div class="cv-stl__content">
+      <span class="cv-stl__label">{{ section.settings.label | default: 'Compleet de look' }}</span>
+      <h2 class="cv-stl__title">{{ section.settings.title | default: 'Shop the Look' }}</h2>
+
+      <div class="cv-stl__cards">
+        {%- if section.settings.product_1 != blank -%}
+          {%- assign p1 = all_products[section.settings.product_1] -%}
+          <a href="{{ p1.url }}" class="cv-stl__card">
+            {%- if p1.featured_image -%}
+              <img class="cv-stl__card-img" src="{{ p1.featured_image | image_url: width: 200 }}" alt="{{ p1.title }}" loading="lazy">
+            {%- else -%}
+              <img class="cv-stl__card-img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="{{ p1.title }}" loading="lazy">
+            {%- endif -%}
+            <div class="cv-stl__card-info">
+              <p class="cv-stl__card-name">{{ p1.title }}</p>
+              <p class="cv-stl__card-price">{{ p1.price | money }}</p>
+              <p class="cv-stl__card-arrow">Bekijk product &rarr;</p>
+            </div>
+          </a>
+        {%- else -%}
+          <a href="/collections/all" class="cv-stl__card">
+            <img class="cv-stl__card-img" src="{{ 'cavare-jas-brown.jpeg' | asset_url }}" alt="Cavarè Jas" loading="lazy">
+            <div class="cv-stl__card-info">
+              <p class="cv-stl__card-name">Cavarè Jas</p>
+              <p class="cv-stl__card-sub">Mocca Brown</p>
+              <p class="cv-stl__card-price">€ 249,00</p>
+              <p class="cv-stl__card-arrow">Bekijk product &rarr;</p>
+            </div>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.product_2 != blank -%}
+          {%- assign p2 = all_products[section.settings.product_2] -%}
+          <a href="{{ p2.url }}" class="cv-stl__card">
+            {%- if p2.featured_image -%}
+              <img class="cv-stl__card-img" src="{{ p2.featured_image | image_url: width: 200 }}" alt="{{ p2.title }}" loading="lazy">
+            {%- else -%}
+              <img class="cv-stl__card-img" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="{{ p2.title }}" loading="lazy">
+            {%- endif -%}
+            <div class="cv-stl__card-info">
+              <p class="cv-stl__card-name">{{ p2.title }}</p>
+              <p class="cv-stl__card-price">{{ p2.price | money }}</p>
+              <p class="cv-stl__card-arrow">Bekijk product &rarr;</p>
+            </div>
+          </a>
+        {%- else -%}
+          <a href="/collections/all" class="cv-stl__card">
+            <img class="cv-stl__card-img" src="{{ 'cavare-tshirts.jpeg' | asset_url }}" alt="T-Shirt Collection" loading="lazy">
+            <div class="cv-stl__card-info">
+              <p class="cv-stl__card-name">T-Shirt Collection</p>
+              <p class="cv-stl__card-sub">Bruin · Navy · Taupe</p>
+              <p class="cv-stl__card-price">€ 79,00</p>
+              <p class="cv-stl__card-arrow">Bekijk product &rarr;</p>
+            </div>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop the Look",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Model foto" },
+    { "type": "text", "id": "label", "label": "Klein label", "default": "Compleet de look" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Shop the Look" },
+    { "type": "product", "id": "product_1", "label": "Product 1" },
+    { "type": "product", "id": "product_2", "label": "Product 2" }
+  ],
+  "presets": [{ "name": "Shop the Look" }]
+}
+{% endschema %}

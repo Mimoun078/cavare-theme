@@ -1,48 +1,88 @@
-<footer class="footer">
-  <div class="footer__inner">
+<style>
+  .cv-footer { background: #231F20; color: #FEFEFE; padding: 5rem 2rem 0; }
+  .cv-footer__grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 3rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(254,254,254,0.1); }
+  .cv-footer__brand-name { font-family: 'Cinzel', 'Georgia', serif; font-size: 1.1rem; letter-spacing: 0.3em; color: #FEFEFE; margin: 0 0 1rem; font-weight: 400; }
+  .cv-footer__brand-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.8; color: rgba(254,254,254,0.55); margin: 0 0 1.5rem; }
+  .cv-footer__social { display: flex; gap: 1rem; }
+  .cv-footer__social a { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid rgba(254,254,254,0.25); color: rgba(254,254,254,0.7); text-decoration: none; transition: all 0.3s; font-size: 0.75rem; font-family: 'Inter', sans-serif; letter-spacing: 0.05em; }
+  .cv-footer__social a:hover { border-color: #FEFEFE; color: #FEFEFE; }
+  .cv-footer__heading { font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(254,254,254,0.45); margin: 0 0 1.25rem; font-weight: 400; }
+  .cv-footer__links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .cv-footer__links a { font-family: 'Inter', sans-serif; font-size: 0.82rem; color: rgba(254,254,254,0.65); text-decoration: none; transition: color 0.2s; letter-spacing: 0.02em; }
+  .cv-footer__links a:hover { color: #FEFEFE; }
+  .cv-footer__newsletter-text { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(254,254,254,0.55); margin: 0 0 1.25rem; line-height: 1.7; }
+  .cv-footer__form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .cv-footer__input { width: 100%; padding: 0.75rem 1rem; background: rgba(254,254,254,0.06); border: 1px solid rgba(254,254,254,0.2); color: #FEFEFE; font-family: 'Inter', sans-serif; font-size: 0.8rem; outline: none; transition: border-color 0.2s; }
+  .cv-footer__input::placeholder { color: rgba(254,254,254,0.35); }
+  .cv-footer__input:focus { border-color: rgba(254,254,254,0.6); }
+  .cv-footer__submit { padding: 0.75rem 1.5rem; background: transparent; border: 1px solid rgba(254,254,254,0.4); color: #FEFEFE; font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .cv-footer__submit:hover { background: #FEFEFE; color: #231F20; }
+  .cv-footer__bottom { max-width: 1280px; margin: 0 auto; padding: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .cv-footer__copy { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: rgba(254,254,254,0.35); letter-spacing: 0.05em; }
+  .cv-footer__payments { display: flex; align-items: center; gap: 0.5rem; }
+  .cv-footer__pay-badge { font-family: 'Inter', sans-serif; font-size: 0.58rem; letter-spacing: 0.06em; font-weight: 600; padding: 0.25rem 0.5rem; border: 1px solid rgba(254,254,254,0.2); color: rgba(254,254,254,0.45); text-transform: uppercase; }
+  @media (max-width: 1024px) { .cv-footer__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .cv-footer__grid { grid-template-columns: 1fr; } .cv-footer__bottom { flex-direction: column; align-items: flex-start; } }
+</style>
 
-    <div class="footer__brand">
-      <p class="footer__brand-name">CAVARÈ</p>
-      <p class="footer__brand-text">{{ section.settings.brand_text }}</p>
-      <div class="footer__social" style="margin-top:1.5rem;">
+<footer class="cv-footer">
+  <div class="cv-footer__grid">
+
+    <div>
+      <p class="cv-footer__brand-name">CAVARÈ</p>
+      <p class="cv-footer__brand-text">{{ section.settings.brand_text }}</p>
+      <div class="cv-footer__social">
         {%- if section.settings.instagram_url != blank -%}
-          <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.tiktok_url != blank -%}
+          <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
         {%- endif -%}
       </div>
     </div>
 
     <div>
-      <p class="footer__heading">{{ 'footer.shop' | t }}</p>
-      <ul class="footer__links">
-        <li><a href="/collections/all">{{ 'navigation.all_products' | t }}</a></li>
+      <p class="cv-footer__heading">Shop</p>
+      <ul class="cv-footer__links">
+        <li><a href="/collections/all">Alle producten</a></li>
+        <li><a href="/collections/new">Nieuw binnen</a></li>
         <li><a href="/collections/t-shirts">T-Shirts</a></li>
-        <li><a href="/collections/new">{{ 'footer.new_arrivals' | t }}</a></li>
+        <li><a href="/collections/jassen">Jassen</a></li>
       </ul>
     </div>
 
     <div>
-      <p class="footer__heading">{{ 'footer.info' | t }}</p>
-      <ul class="footer__links">
-        <li><a href="/pages/over-ons">{{ 'navigation.about' | t }}</a></li>
-        <li><a href="/pages/contact">{{ 'navigation.contact' | t }}</a></li>
-        <li><a href="/pages/maattabel">{{ 'footer.size_guide' | t }}</a></li>
+      <p class="cv-footer__heading">Informatie</p>
+      <ul class="cv-footer__links">
+        <li><a href="/pages/over-ons">Over ons</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+        <li><a href="/pages/verzending">Verzending</a></li>
+        <li><a href="/pages/retour">Retourneren</a></li>
+        <li><a href="/pages/privacy">Privacybeleid</a></li>
       </ul>
     </div>
 
     <div>
-      <p class="footer__heading">{{ 'footer.service' | t }}</p>
-      <ul class="footer__links">
-        <li><a href="/pages/verzending">{{ 'footer.shipping' | t }}</a></li>
-        <li><a href="/pages/retour">{{ 'footer.returns' | t }}</a></li>
-        <li><a href="/pages/privacy">Privacy</a></li>
-      </ul>
+      <p class="cv-footer__heading">Nieuwsbrief</p>
+      <p class="cv-footer__newsletter-text">{{ section.settings.newsletter_text }}</p>
+      <div class="cv-footer__form">
+        <input type="email" class="cv-footer__input" placeholder="Jouw e-mailadres" aria-label="E-mailadres">
+        <button class="cv-footer__submit" type="button">Aanmelden</button>
+      </div>
     </div>
 
   </div>
 
-  <div class="footer__bottom">
-    <p>&copy; {{ 'now' | date: '%Y' }} CAVARÈ Clothing. {{ 'footer.rights' | t }}</p>
-    <p>{{ 'footer.made_in' | t }}</p>
+  <div class="cv-footer__bottom">
+    <p class="cv-footer__copy">&copy; {{ 'now' | date: '%Y' }} CAVARÈ Clothing. Alle rechten voorbehouden.</p>
+    <div class="cv-footer__payments">
+      <span class="cv-footer__pay-badge">iDEAL</span>
+      <span class="cv-footer__pay-badge">Visa</span>
+      <span class="cv-footer__pay-badge">MC</span>
+      <span class="cv-footer__pay-badge">PayPal</span>
+    </div>
   </div>
 </footer>
 
@@ -50,17 +90,10 @@
 {
   "name": "Footer",
   "settings": [
-    {
-      "type": "textarea",
-      "id": "brand_text",
-      "label": "Merktekst",
-      "default": "Modern elegance. Timeless simplicity. Crafted in Italy."
-    },
-    {
-      "type": "url",
-      "id": "instagram_url",
-      "label": "Instagram URL"
-    }
+    { "type": "textarea", "id": "brand_text", "label": "Merktekst", "default": "Modern elegance. Timeless simplicity.\nCrafted in Italy. Made to last." },
+    { "type": "text", "id": "newsletter_text", "label": "Nieuwsbrief tekst", "default": "Ontvang als eerste onze nieuwe collecties en exclusieve aanbiedingen." },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTok URL" }
   ]
 }
 {% endschema %}

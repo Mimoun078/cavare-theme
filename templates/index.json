@@ -6,7 +6,7 @@
         "label": "Nieuwe Collectie",
         "title": "Modern Elegance.\nTimeless Simplicity.",
         "subtitle": "Crafted in Italy. Made to last.",
-        "button_label": "Bekijk de collectie",
+        "button_label": "Shop Nu",
         "button_url": "/collections/all"
       }
     },
@@ -14,12 +14,17 @@
       "type": "featured-collection",
       "settings": {
         "label": "Onze Collectie",
-        "title": "Nieuw Binnen",
-        "products_limit": 4,
+        "title": "Onze Bestsellers",
         "show_button": true,
         "button_label": "Bekijk alle producten",
-        "button_url": "/collections/all",
-        "bg_dark": false
+        "button_url": "/collections/all"
+      }
+    },
+    "shop-the-look": {
+      "type": "shop-the-look",
+      "settings": {
+        "label": "Compleet de look",
+        "title": "Shop the Look"
       }
     },
     "story": {
@@ -33,5 +38,5 @@
       }
     }
   },
-  "order": ["hero", "featured", "story"]
+  "order": ["hero", "featured", "shop-the-look", "story"]
 }
