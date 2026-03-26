@@ -21,11 +21,6 @@
             "default": "#FEFEFE"
           },
           {
-            "type": "color_background",
-            "id": "background_gradient",
-            "label": "Achtergrond verloop"
-          },
-          {
             "type": "color",
             "id": "text",
             "label": "Tekst",
@@ -58,10 +53,7 @@
         ],
         "role": {
           "text": "text",
-          "background": {
-            "solid": "background",
-            "gradient": "background_gradient"
-          },
+          "background": "background",
           "brand_primary": "button",
           "decorative": "button"
         }
